@@ -1,13 +1,14 @@
 <%= link_to "New paste", root_path, :style => "float: right;" %>
 
 <h1>Show paste</h1>
-<a href="/download/<%= @key %>" class="download">Download raw file</a>
+
+<%= link_to "Download raw file", download_paste_path(paste), :class => "download" %>
+
 <div class="code-container">
   <%= raw(paste.highlighted) %>
   <div class="line-numbers"></div>
 </div>
 
-<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.0/jquery.min.js"></script>
 <script type="text/javascript">
   $(document).ready(function() {
     var num = $('.highlight').html().split("\n").length;

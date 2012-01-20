@@ -5,7 +5,9 @@ Morse::Application.routes.draw do
 
   post "paste_code" => "pastes#paste_code"
 
-  resources :pastes
+  resources :pastes do
+    get "download", :on => :member
+  end
 
   root :to => "pastes#new"
 

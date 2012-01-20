@@ -1,7 +1,14 @@
 class PastesController < ApplicationController
   before_filter :authenticate_user!, :only => [:index, :paste_code]
 
-  expose(:pastes) { Paste.all }
+  expose(:pastes) do
+    if signed_in?
+      current_user.pastes
+    else
+      Paste.all
+    end
+  end
+
   expose(:paste) do
     if slug = params["paste_id"] || params[:id]
       Paste.find_by_slug(slug).tap do |r|
@@ -14,8 +21,14 @@ class PastesController < ApplicationController
     end
   end
 
-  def paste_code
+  def paste_file
     render :text => current_user.username
+  end
+
+  def download
+    send_data paste.code,
+      :filename => paste.name || "#{paste.slug}.#{paste.syntax}",
+      :type => "application/shell"
   end
 
   def create
