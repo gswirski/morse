@@ -1,5 +1,18 @@
-<p id="notice"><%= notice %></p>
-<%= paste.code %>
+<%= link_to "New paste", root_path, :style => "float: right;" %>
 
-<%= link_to 'Edit', edit_paste_path(paste) %> |
-<%= link_to 'Back', pastes_path %>
+<h1>Show paste</h1>
+<a href="/download/<%= @key %>" class="download">Download raw file</a>
+<div class="code-container">
+  <%= raw(paste.highlighted) %>
+  <div class="line-numbers"></div>
+</div>
+
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.0/jquery.min.js"></script>
+<script type="text/javascript">
+  $(document).ready(function() {
+    var num = $('.highlight').html().split("\n").length;
+    for (i = 1; i < num; i++) {
+      $('.line-numbers').append(i+"<br />");
+    }
+  })
+</script>

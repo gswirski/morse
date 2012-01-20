@@ -1,0 +1,27 @@
+<h2>Account settings</h2>
+
+<h3>Password</h3>
+<%= form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => { :method => :put }) do |f| %>
+  <%= devise_error_messages! %>
+
+  <div><%= f.label :password %> <i>(leave blank if you don't want to change it)</i><br />
+  <%= f.password_field :password %></div>
+
+  <div><%= f.label :password_confirmation %><br />
+  <%= f.password_field :password_confirmation %></div>
+
+  <div><%= f.label :current_password %> <i>(we need your current password to confirm your changes)</i><br />
+  <%= f.password_field :current_password %></div>
+
+  <div><%= f.submit "Update" %></div>
+<% end %>
+
+<h3>Authentication token</h3>
+<p>You can use your token to authenticate from shell script for example.</p>
+<p><strong>Current token</strong>: <%= current_user.authentication_token %></p>
+
+<%= button_to "Reset token", { :action => :reset_token }, :method => :post, :confirm => "Are you sure?" %>
+
+<h3>Cancel my account</h3>
+
+<p>Unhappy? <%= link_to "Cancel my account", registration_path(resource_name), :confirm => "Are you sure?", :method => :delete %>.</p>

@@ -2,14 +2,7 @@
   <%= f.text_area :code %>
   <div class="line">
     Syntax:
-    <select name="paste[syntax]">
-      <option value="-"></option>
-      <option value="text">Plain text</option>
-      <option value="cpp">C++</option>
-      <option value="rb">Ruby</option>
-      <option value="py">Python</option>
-      <option value="php">PHP</option>
-    </select>
+    <%= f.select(:syntax, Paste.syntax_options) %>
 
     <%= f.submit %>
   </div>

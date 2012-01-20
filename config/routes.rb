@@ -1,7 +1,12 @@
 Morse::Application.routes.draw do
-  devise_for :users
+  devise_for :users, :controllers => { :registrations => "registrations" } do
+    post "users/edit/reset_token" => "registrations#reset_token"
+  end
+
+  post "paste_code" => "pastes#paste_code"
 
   resources :pastes
+
   root :to => "pastes#new"
 
   # The priority is based upon order of creation:
