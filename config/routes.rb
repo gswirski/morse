@@ -1,4 +1,9 @@
 Morse::Application.routes.draw do
+  devise_for :users
+
+  resources :pastes
+  root :to => "pastes#new"
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
