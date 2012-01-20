@@ -8,7 +8,7 @@ class Paste < ActiveRecord::Base
   end
 
   def file=(file)
-    self.code = IO.read(file.tempfile)
+    self.code = file.tempfile.read
   end
 
   def self.syntax_options
