@@ -23,8 +23,8 @@
         <div class="user">
         <% if signed_in? %>
           Hello,
-          <%= link_to current_user.username, edit_user_registration_path %> |
-          <%= link_to "Log out", destroy_user_session_path, :method => :delete %>
+          <%= link_to current_user.username, edit_user_registration_path %>
+          (<%= link_to "log out", destroy_user_session_path, :method => :delete %>)
         <% else %>
           <%= link_to "Login", new_user_session_path %> or
           <%= link_to "create account", new_user_registration_path %>
@@ -32,12 +32,12 @@
         </div>
       </div>
       
-      <p class="notice"><%= notice %></p>
-      <p class="alert"><%= alert %></p>
+      <% if notice %><p class="notice"><%= notice %></p><% end %>
+      <% if alert %><p class="alert"><%= alert %></p><% end %>
       <%= yield %>
     </div>
     <p class="foot">
-      <a href="/shell">Paste files from your terminal!</a><br />
+      <a href="/shell">Paste files from your terminal!</a><br /></br>
       Copyright &copy; 2011 by <a href="http://swirski.name">Grzegorz Świrski.</a>
     </p>
   </body>

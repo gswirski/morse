@@ -144,8 +144,23 @@ a:hover {
   color: #009;
 }
 
+.notice, .alert {
+  background: #FFF;
+  padding: 5px 15px;
+  margin: 0px 0px 20px 0px;
+  -moz-border-radius: 3px;
+  -moz-box-shadow: 1px 1px 0 #DDD;
+  -webkit-border-radius: 3px;
+  -webkit-box-shadow: 1px 1px 0 #DDD;
+}
+
+.notice { color: green }
+.alert { color: red }
+
 .foot {
-  margin-top: 60px;
+  border-top: 1px solid #CCC;
+  padding: 20px 0px;
+  margin-top: 40px;
 }
 
 .highlight .hll { background-color: #49483e }

@@ -1,5 +1,5 @@
 <%= form_for(paste) do |f| %>
-  <%= f.text_area :code %>
+  <%= f.text_area :code, :spellcheck => false %>
   <div class="line">
     Syntax:
     <%= f.select(:syntax, Paste.syntax_options) %>
