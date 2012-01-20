@@ -7,6 +7,10 @@ class Paste < ActiveRecord::Base
     slug
   end
 
+  def file=(file)
+    self.code = IO.read(file.tempfile)
+  end
+
   def self.syntax_options
     [
       ['', '-'], ['Plain text', 'text'], ['C++', 'cpp'],

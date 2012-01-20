@@ -3,8 +3,6 @@ Morse::Application.routes.draw do
     post "users/edit/reset_token" => "registrations#reset_token"
   end
 
-  post "paste_code" => "pastes#paste_code"
-
   resources :pastes do
     get "download", :on => :member
   end

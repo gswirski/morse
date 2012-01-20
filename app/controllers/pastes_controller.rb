@@ -1,5 +1,6 @@
 class PastesController < ApplicationController
-  before_filter :authenticate_user!, :only => [:index, :paste_code]
+  before_filter :authenticate_user!, :only => [:index]
+  respond_to :shell, :only => :create
 
   expose(:pastes) do
     if signed_in?
@@ -21,10 +22,6 @@ class PastesController < ApplicationController
     end
   end
 
-  def paste_file
-    render :text => current_user.username
-  end
-
   def download
     send_data paste.code,
       :filename => paste.name || "#{paste.slug}.#{paste.syntax}",
@@ -33,7 +30,9 @@ class PastesController < ApplicationController
 
   def create
     paste.save
-    respond_with paste
+    respond_with(paste) do |format|
+      format.shell { render :text => paste_url(paste) + "\n" }
+    end
   end
 
   def update
