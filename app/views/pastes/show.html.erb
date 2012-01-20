@@ -1,6 +1,4 @@
-<%= link_to "New paste", root_path, :style => "float: right;" %>
-
-<h1>Show paste</h1>
+<% content_for :title, "Show paste" %>
 
 <%= link_to "Download raw file", download_paste_path(paste), :class => "download" %>
 

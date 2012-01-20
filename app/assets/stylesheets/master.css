@@ -11,6 +11,38 @@ body {
   width: 700px;
 }
 
+.header {
+  overflow: hidden;
+  margin: 0px;
+  padding: 0px;
+}
+
+.header h1, .header .navigation {
+  float: left;
+  margin: 20px 0px;
+}
+
+.header .user {
+  float: right;
+  margin: 20px 0px;
+}
+.navigation {
+  list-style-type: none;
+  overflow: hidden;
+  margin: 20px 20px !important;
+  padding: 0px;
+}
+
+.navigation li {
+  display: block;
+  float: left;
+}
+
+.navigation li a {
+  display: block;
+  padding: 2px 7px;
+}
+
 form {
   display: block;
   width: 100%;
@@ -106,6 +138,10 @@ form input[type="submit"]:hover {
 a {
   color: #00E;
   text-decoration: none;
+}
+
+a:hover {
+  color: #009;
 }
 
 .foot {

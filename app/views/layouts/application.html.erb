@@ -9,15 +9,29 @@
   </head>
   <body>
     <div class="wrapper">
-      <p style="text-align: right">
-      <% if signed_in? %>
-        Signed in as
-        <%= link_to current_user.username, edit_user_registration_path %>.
-        <%= link_to "Sign out", destroy_user_session_path, :method => :delete %>
-      <% else %>
-        <%= link_to "Sign in", new_user_session_path %>
-      <% end %>
-      </p>
+      <div class="header">
+        <h1><%= yield :title %></h1>
+
+        <ul class="navigation">
+          <li><%= link_to "New paste", root_path %></li>
+          <% if signed_in? %>
+          <li><%= link_to "Pastes", pastes_path %></li>
+          <li><a href="#">Algo</a></li>
+          <% end %>
+        </ul>
+        
+        <div class="user">
+        <% if signed_in? %>
+          Hello,
+          <%= link_to current_user.username, edit_user_registration_path %> |
+          <%= link_to "Log out", destroy_user_session_path, :method => :delete %>
+        <% else %>
+          <%= link_to "Login", new_user_session_path %> or
+          <%= link_to "create account", new_user_registration_path %>
+        <% end %>
+        </div>
+      </div>
+      
       <p class="notice"><%= notice %></p>
       <p class="alert"><%= alert %></p>
       <%= yield %>
