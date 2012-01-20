@@ -26,7 +26,7 @@ class Paste < ActiveRecord::Base
   end
   
   def colorize
-    lexer = self.syntax
+    lexer = self.syntax || "-"
     source = self.code
 
     command = "pygmentize"
