@@ -9,6 +9,15 @@ body {
 .wrapper, .foot {
   margin: auto;
   width: 700px;
+  position: relative;
+}
+
+.alpha {
+  font: italic 100px serif;
+  position: absolute;
+  top: -10px;
+  left: -90px;
+  color: #CCC;
 }
 
 .header {
