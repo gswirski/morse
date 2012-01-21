@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  user_id: 
+  group_id: 
+  is_accepted: false
+  is_owner: false
+
+two:
+  user_id: 
+  group_id: 
+  is_accepted: false
+  is_owner: false

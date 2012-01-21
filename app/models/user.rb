@@ -1,5 +1,7 @@
 class User < ActiveRecord::Base
   has_many :pastes
+  has_many :user_groups
+  has_many :groups, :through => :user_groups
 
   # Include default devise modules. Others available are:
   # :encryptable, :confirmable, :lockable, :timeoutable and :omniauthable
