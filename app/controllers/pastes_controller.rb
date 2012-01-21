@@ -4,10 +4,11 @@ class PastesController < ApplicationController
 
   expose(:pastes) do
     if signed_in?
-      current_user.pastes
+      pastes = current_user.pastes
     else
-      Paste.all
+      pastes = Paste.all
     end
+    pastes.order("created_at DESC")
   end
 
   expose(:paste) do

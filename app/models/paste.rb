@@ -1,10 +1,15 @@
 class Paste < ActiveRecord::Base
   belongs_to :user
 
-  before_create :generate_slug, :colorize
+  before_create :generate_slug
+  before_save :colorize
 
   def to_param
     slug
+  end
+
+  def name
+    @name || "<em>unnamed</em>"
   end
 
   def file=(file)

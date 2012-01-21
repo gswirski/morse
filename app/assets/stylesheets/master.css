@@ -2,6 +2,15 @@ body {
   background: #F3F3F3;
 }
 
+a img {
+  vertical-align: top;
+  opacity: 0.6;
+}
+
+a:hover img {
+  opacity: 0.8;
+}
+
 .container {
   width: 700px;
 }
@@ -35,17 +44,8 @@ body {
   display: inline !important;
 }
 
-.navigation a img {
-  vertical-align: top;
-  opacity: 0.6;
-}
-
 .navigation a:hover {
   text-decoration: none;
-}
-
-.navigation a:hover img {
-  opacity: 0.8;
 }
 
 .paste-code {
