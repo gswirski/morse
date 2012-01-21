@@ -29,7 +29,7 @@ class Paste < ActiveRecord::Base
     lexer = self.syntax || "-"
     source = self.code
 
-    command = "/home/sognat/bin/pygmentize"
+    command = Morse::Application.config.pygmentize_command || 'pygmentize'
     command += " -Oencoding=utf-8"
     command += (lexer == '-') ? " -g" : " -l #{lexer}"
     command += " -f html"
