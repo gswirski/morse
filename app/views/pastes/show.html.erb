@@ -1,6 +1,6 @@
 <% content_for :title, "Show paste" %>
 
-<%= link_to "Download raw file", download_paste_path(paste), :class => "download" %>
+<p style="text-align: right; margin-top: -20px"><%= link_to "Download raw file", download_paste_path(paste), :class => "download" %></p>
 
 <div class="code-container">
   <%= raw(paste.highlighted) %>

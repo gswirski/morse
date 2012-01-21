@@ -8,40 +8,73 @@
     <%= csrf_meta_tags %>
   </head>
   <body>
-    <div class="wrapper">
-      <div class="alpha">&alpha;</div>
-
-      <div class="header">
-        <h1><%= yield :title %></h1>
-
-        <ul class="navigation">
-          <li><%= link_to "New paste", root_path %></li>
+    <div class="container">
+      <div class="row header">
+        <ul class="menu navigation">
+          <li>
+            <%= link_to root_path do %>
+              <%= image_tag "new.png" %> New paste
+            <% end %>
+          </li>
           <% if signed_in? %>
-          <li><%= link_to "Pastes", pastes_path %></li>
-          <li><a href="#">Groups</a></li>
+          <li>
+            <%= link_to pastes_path do %>
+              <%= image_tag "browse.png" %> Browse
+            <% end %>
+          </li>
+          <li>
+            <%= link_to '#' do %>
+              <%= image_tag "groups.png" %> Groups
+            <% end %>
+          </li>
           <% end %>
         </ul>
-        
-        <div class="user">
+
+        <ul class="user navigation">
         <% if signed_in? %>
-          Hello,
-          <%= link_to current_user.username, edit_user_registration_path %>
-          (<%= link_to "log out", destroy_user_session_path, :method => :delete %>)
+        <li>
+          <%= link_to edit_user_registration_path do %>
+            <%= image_tag "settings.png" %> <%= current_user.username %>
+          <% end %>
+        </li>
+        <li>
+          <%= link_to destroy_user_session_path, :method => :delete do %>
+            <%= image_tag "sign_out.png" %>
+          <% end %>
+        </li>
         <% else %>
+        <li class="unlogged">
           <%= link_to "Login", new_user_session_path %> or
           <%= link_to "create account", new_user_registration_path %>
+        </li>
         <% end %>
-        </div>
+        </ul>
       </div>
-      
-      <% if notice %><p class="notice"><%= notice %></p><% end %>
-      <% if alert %><p class="alert"><%= alert %></p><% end %>
+
+      <h1><%= yield :title %></h1>
+
+      <% if notice %>
+        <div class="alert-message success">
+          <p><%= notice %></p>
+        </div>
+      <% end %>
+      <% if alert %>
+        <div class="alert-message error">
+          <p><%= alert %></p>
+        </div>
+      <% end %>
+
       <%= yield %>
+      
+      <div class="foot">
+        <p>
+          <a href="/shell">Paste files from your terminal!</a>
+        </p>
+        <p class="copyright">
+          Copyright &copy; 2011 by <a href="http://swirski.name">Grzegorz Świrski.</a>
+        </p>
+      </div>
     </div>
-    <p class="foot">
-      <a href="/shell">Paste files from your terminal!</a><br /></br>
-      Copyright &copy; 2011 by <a href="http://swirski.name">Grzegorz Świrski.</a>
-    </p>
   </body>
 </html>
 <html>

@@ -5,15 +5,24 @@
 
   <% if devise_mapping.rememberable? -%>
     <%= f.hidden_field :remember_me, :value => true %>
-    <% end -%>
+  <% end -%>
 
-  <div><%= f.label :username %><br />
-  <%= f.text_field :username %></div>
+  <div class="clearfix">
+    <%= f.label :username %>
+    <div class="input">
+      <%= f.text_field :username %>
+    </div>
+  </div>
 
-  <div><%= f.label :password %><br />
-  <%= f.password_field :password %></div>
+  <div class="clearfix">
+    <%= f.label :password %>
+    <div class="input">
+      <%= f.password_field :password %>
+    </div>
+  </div>
 
-  <div><%= f.submit "Login" %></div>
+  <div class="actions">
+    <%= f.submit "Login", :class => "btn primary" %>
+    <%= link_to "Create account", new_registration_path(resource_name) %>
+  </div>
 <% end %>
-
-<%= render :partial => "devise/shared/links" %>
