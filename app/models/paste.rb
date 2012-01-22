@@ -9,7 +9,7 @@ class Paste < ActiveRecord::Base
   end
 
   def name
-    @name || "<em>unnamed</em>"
+    read_attribute(:name) || "<em>unnamed</em>"
   end
 
   def file=(file)
