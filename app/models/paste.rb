@@ -34,7 +34,7 @@ class Paste < ActiveRecord::Base
     lexer = self.syntax || "-"
     source = self.code
 
-    command = "pygmentize"
+    command = Pygmentize.bin
     command += " -Oencoding=utf-8"
     command += (lexer == '-') ? " -g" : " -l #{lexer}"
     command += " -f html"
