@@ -59,6 +59,10 @@ a:hover img {
   float: right;
 }
 
+#paste_syntax {
+  float: right;
+}
+
 pre {
   -moz-border-radius: 5px;
   -moz-box-shadow: 0 -1px 0 #444;

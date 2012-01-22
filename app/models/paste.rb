@@ -18,7 +18,8 @@ class Paste < ActiveRecord::Base
 
   def self.syntax_options
     [
-      ['', '-'], ['Plain text', 'text'], ['C++', 'cpp'],
+      ['Guess syntax from contents', '-'],
+      ['Plain text', 'text'], ['C++', 'cpp'],
       ['Ruby', 'rb'], ['Python', 'py'], ['PHP', 'php']
     ]
   end
