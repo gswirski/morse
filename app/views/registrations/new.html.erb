@@ -1,0 +1,30 @@
+<% content_for :title, "Create account" %>
+
+<%= form_for(resource, :as => resource_name, :url => registration_path(resource_name)) do |f| %>
+  <%= devise_error_messages! %>
+
+  <div class="clearfix">
+    <%= f.label :username %>
+    <div class="input">
+      <%= f.text_field :username %>
+    </div>
+  </div>
+  
+  <div class="clearfix">
+    <%= f.label :password %>
+    <div class="input">
+      <%= f.password_field :password %>
+    </div>
+  </div>
+
+  <div class="clearfix">
+    <%= f.label :password_confirmation, "Password again" %>
+    <div class="input">
+      <%= f.password_field :password_confirmation %>
+    </div>
+  </div>
+
+  <div class="actions">
+    <%= f.submit "Register", :class => "btn primary" %>
+  </div>
+<% end %>

@@ -1,0 +1,26 @@
+<% content_for :title, "Browse pastes" %>
+
+<table class="bordered-table zebra-striped">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Created at</th>
+      <th width="40px"></th>
+    </tr>
+  </thead>
+  <tbody>
+  <% pastes.each do |paste| %>
+    <tr>
+      <td>
+        <%= link_to raw(paste.name), paste %>
+      <td>
+        <%= link_to "#{time_ago_in_words(paste.created_at)} ago", paste %>
+      </td>
+      <td style="text-align: center">
+        <%= link_to image_tag("edit.png"), edit_paste_path(paste) %>
+        <%= link_to image_tag("delete.png"), paste, :confirm => 'Are you sure?', :method => :delete %>
+      </td>
+    </tr>
+  <% end %>
+  </tbody>
+</table>

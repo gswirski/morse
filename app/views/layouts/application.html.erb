@@ -1,0 +1,80 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Morse</title>
+    <%= stylesheet_link_tag    "application", :media => "all" %>
+    <%= javascript_include_tag "application" %>
+    <%= csrf_meta_tags %>
+  </head>
+  <body>
+    <div class="container">
+      <div class="row header">
+        <ul class="menu navigation">
+          <li>
+            <%= link_to root_path do %>
+              <%= image_tag "new.png" %> New paste
+            <% end %>
+          </li>
+          <% if signed_in? %>
+          <li>
+            <%= link_to pastes_path do %>
+              <%= image_tag "browse.png" %> Browse
+            <% end %>
+          </li>
+          <li>
+            <%= link_to '#' do %>
+              <%= image_tag "groups.png" %> Groups
+            <% end %>
+          </li>
+          <% end %>
+        </ul>
+
+        <ul class="user navigation">
+        <% if signed_in? %>
+        <li>
+          <%= link_to edit_user_registration_path do %>
+            <%= image_tag "settings.png" %> <%= current_user.username %>
+          <% end %>
+        </li>
+        <li>
+          <%= link_to destroy_user_session_path, :method => :delete do %>
+            <%= image_tag "sign_out.png" %>
+          <% end %>
+        </li>
+        <% else %>
+        <li class="unlogged">
+          <%= link_to "Login", new_user_session_path %> or
+          <%= link_to "create account", new_user_registration_path %>
+        </li>
+        <% end %>
+        </ul>
+      </div>
+
+      <h1><%= yield :title %></h1>
+
+      <% if notice %>
+        <div class="alert-message success">
+          <p><%= notice %></p>
+        </div>
+      <% end %>
+      <% if alert %>
+        <div class="alert-message error">
+          <p><%= alert %></p>
+        </div>
+      <% end %>
+
+      <%= yield %>
+      
+      <div class="foot">
+        <p>
+          <a href="/shell">Paste files from your terminal!</a>
+        </p>
+        <p class="copyright">
+          Copyright &copy; 2012 by <a href="http://swirski.name">Grzegorz Świrski</a>.
+        </p>
+      </div>
+    </div>
+  </body>
+</html>
+<html>
