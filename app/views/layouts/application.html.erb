@@ -8,7 +8,7 @@
     <%= csrf_meta_tags %>
   </head>
   <body>
-    <div class="container">
+    <div class="wrapper container">
       <div class="row header">
         <ul class="menu navigation">
           <li>
@@ -65,16 +65,16 @@
       <% end %>
 
       <%= yield %>
-      
-      <div class="foot">
-        <p>
-          <a href="/shell">Paste files from your terminal!</a>
-        </p>
-        <p class="copyright">
-          Copyright &copy; 2012 by <a href="http://swirski.name">Grzegorz Świrski</a>.
-        </p>
-      </div>
+
+     <div class="push"></div>
     </div>
+    
+    <footer class="footer">
+      <div class="container">
+        <p class="pull-right">Copyright &copy; 2012 Grzegorz Świrski</p>
+        <p><a href="#">Paste files from your terminal!</a></p>
+      </div>
+    </footer>
   </body>
 </html>
 <html>

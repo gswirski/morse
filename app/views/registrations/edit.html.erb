@@ -19,6 +19,6 @@
 <% end %>
 
 <h3>API token</h3>
-<p>Your API token is <code><%= current_user.authentication_token %></code> — keep it <strong>secret!</strong>.</p>
+<p>Your API token is <code><%= current_user.authentication_token %></code> — keep it <strong>secret</strong>!</p>
 
 <%= button_to "Reset token", { :action => :reset_token }, :method => :post, :confirm => "Are you sure?", :class => "btn primary" %>
