@@ -62,15 +62,10 @@ a:hover img {
   min-height: 200px;
   height: 400px;
   width: 690px;
-  margin-bottom: 20px;
-}
-
-.paste-actions .btn {
-  float: right;
 }
 
 #paste_syntax {
-  float: right;
+  margin-left: 15px;
 }
 
 pre {
