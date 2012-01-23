@@ -55,8 +55,6 @@
 
       <div class="content">
         <div class="container">
-          <h1><%= yield :title %></h1>
-
           <% if notice %>
             <div class="alert-message success">
               <p><%= notice %></p>
@@ -67,6 +65,8 @@
               <p><%= alert %></p>
             </div>
           <% end %>
+
+          <h1><%= yield :title %></h1>
 
           <%= yield %>
         </div>
