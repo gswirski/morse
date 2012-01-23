@@ -7,6 +7,7 @@ group :production do
 end
 group :development, :test do
   gem 'sqlite3'
+  gem 'factory_girl_rails'
 end
 
 gem 'devise'
