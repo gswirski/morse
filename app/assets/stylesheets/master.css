@@ -114,6 +114,10 @@ code, pre {
   user-select: none;
 }
 
+.pagination ul {
+  background: #FAFAFA;
+}
+
 html, body {
   height: 100%;
 }

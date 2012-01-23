@@ -13,6 +13,7 @@ end
 gem 'devise'
 gem 'decent_exposure'
 gem 'pygmentize'
+gem 'kaminari'
 
 # Gems used only for assets and not required
 # in production environments by default.
