@@ -12,7 +12,9 @@
   <% pastes.each do |paste| %>
     <tr>
       <td>
-        <%= link_to raw(paste.name), paste %>
+        <%= link_to paste do %>
+          <%= paste.name.presence || raw("<em>unnamed</em>") %>
+        <% end %>
       <td>
         <%= link_to "#{time_ago_in_words(paste.created_at)} ago", paste %>
       </td>

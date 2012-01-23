@@ -25,7 +25,7 @@ class PastesController < ApplicationController
 
   def download
     send_data paste.code,
-      :filename => paste.name || "#{paste.slug}.#{paste.syntax}",
+      :filename => paste.filename,
       :type => "application/shell"
   end
 

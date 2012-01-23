@@ -2,14 +2,15 @@ class Paste < ActiveRecord::Base
   belongs_to :user
 
   before_create :generate_slug
+  before_save :negotiate_attributes
   before_save :colorize
 
   def to_param
     slug
   end
 
-  def name
-    read_attribute(:name) || "<em>unnamed</em>"
+  def filename
+    read_attribute(:name).presence || "#{slug}.#{syntax}"
   end
 
   def file=(file)
@@ -18,26 +19,37 @@ class Paste < ActiveRecord::Base
 
   def self.syntax_options
     [
-      ['Guess syntax from contents', '-'],
-      ['Plain text', 'text'], ['C++', 'cpp'],
-      ['Ruby', 'rb'], ['Python', 'py'], ['PHP', 'php']
+      ['Plain text', 'txt'],
+      ['C++', 'cpp'],
+      ['Ruby', 'rb'],
+      ['Python', 'py'],
+      ['PHP', 'php']
     ]
   end
 
   protected
-  
+
   def generate_slug
     o =  [('a'..'z'),('0'..'9')].map{|i| i.to_a}.flatten
     self.slug = (0..20).map{ o[rand(o.length)] }.join
   end
-  
+
+  def ext_from_name
+    File.extname(self.name)[1..-1] if self.name.present?
+  end
+
+  def negotiate_attributes
+    self.syntax = self.syntax.presence || ext_from_name || "txt"
+  end
+
   def colorize
-    lexer = self.syntax || "-"
+    lexer = self.syntax || "txt"
+    lexer = "text" if lexer == "txt"
     source = self.code
 
     command = Pygmentize.bin
     command += " -Oencoding=utf-8"
-    command += (lexer == '-') ? " -g" : " -l #{lexer}"
+    command += " -l #{lexer}"
     command += " -f html"
 
     self.highlighted = IO.popen(command, source ? "r+" : "r") do |io|
