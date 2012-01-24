@@ -1,9 +1,11 @@
 <%= form_for(paste) do |f| %>
+  <div class="clearfix">
+    <%= f.text_field :name, :placeholder => "File name (optional)" %>
+    <%= f.select :syntax, Paste.syntax_options %>
+    <%= f.submit "Paste code", :class => "btn primary pull-right" %>
+  </div>
   <%= f.text_area :code, :spellcheck => false, :class => "paste-code" %>
   <div class="clearfix paste-actions">
-    Syntax:
-    <%= f.select(:syntax, Paste.syntax_options) %>
-
-    <%= f.submit "Paste code", :class => "btn primary" %>
+    
   </div>
 <% end %>

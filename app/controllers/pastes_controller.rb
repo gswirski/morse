@@ -3,12 +3,7 @@ class PastesController < ApplicationController
   respond_to :shell, :only => :create
 
   expose(:pastes) do
-    if signed_in?
-      pastes = current_user.pastes
-    else
-      pastes = Paste.all
-    end
-    pastes.order("created_at DESC")
+    current_user.pastes.order("created_at DESC").page(params[:page]).per(10)
   end
 
   expose(:paste) do
@@ -25,7 +20,7 @@ class PastesController < ApplicationController
 
   def download
     send_data paste.code,
-      :filename => paste.name || "#{paste.slug}.#{paste.syntax}",
+      :filename => paste.filename,
       :type => "application/shell"
   end
 

@@ -1,0 +1,5 @@
+<% if page.current? %>
+<li class="active"><%= link_to page, url %></li>
+<% else %>
+<li><%= link_to page, url %></li>
+<% end %>

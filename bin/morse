@@ -1,0 +1,82 @@
+#!/usr/bin/env python
+import sys
+import getopt
+from os.path import expanduser, splitext
+from commands import getoutput
+
+helpStr = '''Usage: morse [options][file]
+-l syntax\t define syntax of paste
+-t \t\t set syntax to plain text
+--token=TOKEN \t set TOKEN to login to your account (without this morse will try to get token from ~/.morserc)
+--no-login \t don't login to account'''
+
+def getTokenFromConf():
+	conf = file(expanduser('~/.morserc'), "r")
+	t = conf.readline().strip()
+	conf.close()
+	return t
+
+def getSyntaxFromExt(filename):
+	if filename == '@-':
+		return '-'
+	if splitext(filename)[1]:
+		return splitext(filename)[1][1:]
+	else:
+		return '-'
+
+def setSyntax(value, curlArgs):
+	curlArgs += ['-F']
+	curlArgs += ['"paste[syntax]='+value+'"']
+
+def setToken(value, curlArgs):
+	curlArgs += ['-F']
+	curlArgs += ['"auth_token='+value+'"']
+
+def setName(value, curlArgs):
+	curlArgs += ['-F']
+	curlArgs += ['"paste[name]='+value+'"']
+
+def setFile(value, curlArgs):
+	curlArgs += ['-F']
+	curlArgs += ['"paste[file]='+value+'"']
+	
+try:
+	opts, args = getopt.gnu_getopt(sys.argv[1:], 'tl: ', ['token=', 'no-login'])
+except getopt.GetoptError:
+	print helpStr
+	sys.exit(0)
+
+opts = dict(opts)
+curlArgs = ['curl']
+
+if args:
+	filename = args[0]
+	setName(filename, curlArgs)
+else:
+	filename = '-'
+
+if '-t' in opts.keys():
+	syntax = 'text'
+elif '-l' in opts.keys():
+	syntax = opts['-l']
+else:
+	syntax = getSyntaxFromExt(filename)
+
+if '--no-login' in opts.keys():
+	token = False
+elif '--token' in opts.keys():
+	token = opts['--token']
+else:
+	token = getTokenFromConf()
+
+if token:
+	setToken(token, curlArgs)
+setSyntax(syntax, curlArgs)
+setFile('@'+filename, curlArgs)
+URL = 'http://morse.herokuapp.com/pastes.shell'
+
+curlArgs += ['-F']
+curlArgs += ['"paste[name]=e4.cpp"']
+
+curlArgs += [URL]
+print getoutput(' '.join(curlArgs))

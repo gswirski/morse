@@ -8,73 +8,82 @@
     <%= csrf_meta_tags %>
   </head>
   <body>
-    <div class="container">
-      <div class="row header">
-        <ul class="menu navigation">
-          <li>
-            <%= link_to root_path do %>
-              <%= image_tag "new.png" %> New paste
+    <div class="wrapper">
+      <div class="header">
+        <div class="container">
+          <ul class="menu navigation">
+            <li>
+              <%= link_to root_path do %>
+                <%= image_tag "new.png" %> New paste
+              <% end %>
+            </li>
+            <% if signed_in? %>
+            <li>
+              <%= link_to pastes_path do %>
+                <%= image_tag "browse.png" %> Browse
+              <% end %>
+            </li>
+            <li>
+              <%= link_to '#' do %>
+                <%= image_tag "groups.png" %> Groups
+              <% end %>
+            </li>
             <% end %>
-          </li>
-          <% if signed_in? %>
-          <li>
-            <%= link_to pastes_path do %>
-              <%= image_tag "browse.png" %> Browse
-            <% end %>
-          </li>
-          <li>
-            <%= link_to '#' do %>
-              <%= image_tag "groups.png" %> Groups
-            <% end %>
-          </li>
-          <% end %>
-        </ul>
+          </ul>
 
-        <ul class="user navigation">
-        <% if signed_in? %>
-        <li>
-          <%= link_to edit_user_registration_path do %>
-            <%= image_tag "settings.png" %> <%= current_user.username %>
+          <ul class="user navigation">
+            <% if signed_in? %>
+            <li>
+              <%= link_to edit_user_registration_path do %>
+                <%= image_tag "settings.png" %> <%= current_user.username %>
+              <% end %>
+            </li>
+            <li>
+              <%= link_to destroy_user_session_path, :method => :delete do %>
+                <%= image_tag "sign_out.png" %>
+              <% end %>
+            </li>
+            <% else %>
+            <li class="unlogged">
+              <%= link_to "Login", new_user_session_path %> or
+              <%= link_to "create account", new_user_registration_path %>
+            </li>
           <% end %>
-        </li>
-        <li>
-          <%= link_to destroy_user_session_path, :method => :delete do %>
-            <%= image_tag "sign_out.png" %>
-          <% end %>
-        </li>
-        <% else %>
-        <li class="unlogged">
-          <%= link_to "Login", new_user_session_path %> or
-          <%= link_to "create account", new_user_registration_path %>
-        </li>
-        <% end %>
-        </ul>
+          </ul>
+        </div>
       </div>
 
-      <h1><%= yield :title %></h1>
+      <div class="content">
+        <div class="container">
+          <% if notice %>
+            <div class="alert-message success">
+              <p><%= notice %></p>
+            </div>
+          <% end %>
+          <% if alert %>
+            <div class="alert-message error">
+              <p><%= alert %></p>
+            </div>
+          <% end %>
 
-      <% if notice %>
-        <div class="alert-message success">
-          <p><%= notice %></p>
-        </div>
-      <% end %>
-      <% if alert %>
-        <div class="alert-message error">
-          <p><%= alert %></p>
-        </div>
-      <% end %>
+          <h1><%= yield :title %></h1>
 
-      <%= yield %>
-      
-      <div class="foot">
-        <p>
-          <a href="/shell">Paste files from your terminal!</a>
-        </p>
-        <p class="copyright">
-          Copyright &copy; 2012 by <a href="http://swirski.name">Grzegorz Świrski</a>.
-        </p>
+          <%= yield %>
+        </div>
       </div>
+
+      <div class="push"></div>
     </div>
+    
+    <footer class="footer">
+      <div class="container">
+        <p class="pull-right">
+          Copyright &copy; 2012 by
+          <a href="http://swirski.name">Grzegorz Świrski</a>
+        </p>
+        <p><a href="#">Paste files from your terminal!</a></p>
+      </div>
+    </footer>
   </body>
 </html>
 <html>
