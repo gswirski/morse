@@ -15,8 +15,8 @@ ActiveRecord::Schema.define(:version => 20120121134222) do
 
   create_table "groups", :force => true do |t|
     t.string   "name"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "pastes", :force => true do |t|
@@ -25,8 +25,8 @@ ActiveRecord::Schema.define(:version => 20120121134222) do
     t.string   "syntax"
     t.text     "code"
     t.integer  "user_id"
-    t.datetime "created_at",  :null => false
-    t.datetime "updated_at",  :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
     t.text     "highlighted"
   end
 
@@ -35,8 +35,8 @@ ActiveRecord::Schema.define(:version => 20120121134222) do
     t.integer  "group_id"
     t.boolean  "is_accepted"
     t.boolean  "is_owner"
-    t.datetime "created_at",  :null => false
-    t.datetime "updated_at",  :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "users", :force => true do |t|
@@ -51,8 +51,8 @@ ActiveRecord::Schema.define(:version => 20120121134222) do
     t.string   "current_sign_in_ip"
     t.string   "last_sign_in_ip"
     t.string   "authentication_token"
-    t.datetime "created_at",                                            :null => false
-    t.datetime "updated_at",                                            :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
     t.string   "username"
   end
 
