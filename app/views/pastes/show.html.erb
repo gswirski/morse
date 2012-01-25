@@ -6,9 +6,19 @@
 <% end %>
 
 <% content_for :actions do %>
-  <%= link_to download_paste_path(paste), :class => "btn" do %>
-    <i class="download-alt"></i>Download file
-  <% end %>
+    <div class="btn-group">
+    <%= link_to download_paste_path(paste), :class => "btn" do %>
+      <i class="download-alt"></i> Download file
+    <% end %>
+    </div>
+    <div class="btn-group">
+    <%= link_to edit_paste_path(paste), :class => "btn" do %>
+      <i class="edit"></i> Edit
+    <% end %>
+    <%= link_to paste, :method => :delete, :confirm => "Are you sure?", :class => "btn danger" do %>
+      <i class="trash"></i> Delete
+    <% end %>
+    </div>
 <% end %>
 
 <div class="code-container">

@@ -1,8 +1,17 @@
 <%= form_for(paste) do |f| %>
+  <% if params[:action] == "edit" %>
+    <div class="pull-right">
+      <%= f.submit "Update code", :class => "btn primary" %>
+      or
+      <%= link_to "go back", paste %>
+    </div>
+  <% else %>
+    <%= f.submit "Paste code", :class => "btn primary pull-right" %>
+  <% end %>
+
   <p class="form-inline paste-actions">
     <%= f.text_field :name, :placeholder => "File name (optional)" %>
     <%= f.select :syntax, Paste.syntax_options %>
-    <%= f.submit "Paste code", :class => "btn primary pull-right" %>
   </p>
   <%= f.text_area :code, :spellcheck => false %>
 <% end %>

@@ -1,6 +1,3 @@
-<h1>Editing paste</h1>
+<% content_for :title, "Edit paste" %>
 
-<%= render 'form' %>
-
-<%= link_to 'Show', paste %> |
-<%= link_to 'Back', pastes_path %>
+<%= render 'form', :cancel => true %>
