@@ -1,8 +1,13 @@
-<% content_for :title, "Show paste" %>
+<% content_for :title do %>
+  Show paste
+  <% if paste.name.present? %>
+    <small><%= paste.name %></small>
+  <% end %>
+<% end %>
 
 <% content_for :actions do %>
   <%= link_to download_paste_path(paste), :class => "btn" do %>
-    <i class="download-alt"></i>Download raw
+    <i class="download-alt"></i>Download file
   <% end %>
 <% end %>
 
@@ -10,8 +15,6 @@
   <%= raw(paste.highlighted) %>
   <div class="line-numbers"></div>
 </div>
-
-<!--<p style="text-align: right; margin-top: -20px"></p>-->
 
 <script type="text/javascript">
   $(document).ready(function() {

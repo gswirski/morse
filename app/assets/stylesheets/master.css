@@ -16,6 +16,14 @@ h1 {
   margin-bottom: 20px;
 }
 
+h1 small {
+  line-height: 20px;
+}
+
+.button-toolbar {
+  margin-top: 4px;
+}
+
 a img, a i {
   opacity: 0.6;
 }

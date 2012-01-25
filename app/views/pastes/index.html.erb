@@ -17,8 +17,8 @@
       <% pastes.each do |paste| %>
       <li>
         <%= link_to paste do %>
-          <%= paste.name.presence || raw("<em>unnamed</em>") %>
-          <span class="date"><%= "#{time_ago_in_words(paste.created_at)} ago" %></span>
+          <span class="date pull-right"><%= "#{time_ago_in_words(paste.created_at)} ago" %></span>
+          <i class="file"></i> <%= paste.name.presence || raw("<em>unnamed</em>") %>
         <% end %>
       </li>
       <% end %>
