@@ -1,11 +1,17 @@
 <% content_for :title, "Show paste" %>
 
-<p style="text-align: right; margin-top: -20px"><%= link_to "Download raw file", download_paste_path(paste), :class => "download" %></p>
+<% content_for :actions do %>
+  <%= link_to download_paste_path(paste), :class => "btn" do %>
+    <i class="download-alt"></i>Download raw
+  <% end %>
+<% end %>
 
 <div class="code-container">
   <%= raw(paste.highlighted) %>
   <div class="line-numbers"></div>
 </div>
+
+<!--<p style="text-align: right; margin-top: -20px"></p>-->
 
 <script type="text/javascript">
   $(document).ready(function() {

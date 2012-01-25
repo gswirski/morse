@@ -1,0 +1,45 @@
+.well { background: #EEE; }
+
+.nav > li > a:hover {
+  text-decoration:none;
+  background-color:#ddd;
+}
+
+.header {
+  background-color: #fff;
+  padding: 15px 20px;
+  margin: 0 0px 20px 0px;
+  -webkit-box-shadow: 0 1px 2px rgba(0,0,0,.15);
+     -moz-box-shadow: 0 1px 2px rgba(0,0,0,.15);
+          box-shadow: 0 1px 2px rgba(0,0,0,.15);
+}
+
+.header .menu {
+  float: left;
+}
+
+.header .user-actions {
+  float: right;
+}
+
+.navigation {
+  list-style-type: none;
+  margin: 0px -10px;
+  padding: 0px;
+}
+.navigation li {
+  float: left;
+}
+.navigation a {
+  display: block;
+  margin: 0px 10px;
+  font-size: 14px;
+}
+
+.navigation .unlogged a {
+  display: inline !important;
+}
+
+.navigation a:hover {
+  text-decoration: none;
+}

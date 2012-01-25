@@ -14,33 +14,33 @@
           <ul class="menu navigation">
             <li>
               <%= link_to root_path do %>
-                <%= image_tag "new.png" %> New paste
+                <i class="file"></i> New paste
               <% end %>
             </li>
             <% if signed_in? %>
             <li>
               <%= link_to pastes_path do %>
-                <%= image_tag "browse.png" %> Browse
+                <i class="inbox"></i> Browse
               <% end %>
             </li>
             <li>
               <%= link_to '#' do %>
-                <%= image_tag "groups.png" %> Groups
+                <i class="user"></i> Groups
               <% end %>
             </li>
             <% end %>
           </ul>
 
-          <ul class="user navigation">
+          <ul class="user-actions navigation">
             <% if signed_in? %>
             <li>
               <%= link_to edit_user_registration_path do %>
-                <%= image_tag "settings.png" %> <%= current_user.username %>
+                <i class="cog"></i> <%= current_user.username %>
               <% end %>
             </li>
             <li>
               <%= link_to destroy_user_session_path, :method => :delete do %>
-                <%= image_tag "sign_out.png" %>
+                <i class="off"></i>
               <% end %>
             </li>
             <% else %>
@@ -56,16 +56,19 @@
       <div class="content">
         <div class="container">
           <% if notice %>
-            <div class="alert-message success">
-              <p><%= notice %></p>
+            <div class="alert alert-success">
+              <%= notice %>
             </div>
           <% end %>
           <% if alert %>
-            <div class="alert-message error">
-              <p><%= alert %></p>
+            <div class="alert alert-error">
+              <%= alert %>
             </div>
           <% end %>
 
+          <div class="button-toolbar pull-right">
+            <%= yield :actions %>
+          </div>
           <h1><%= yield :title %></h1>
 
           <%= yield %>

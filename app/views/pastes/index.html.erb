@@ -1,30 +1,29 @@
 <% content_for :title, "Browse pastes" %>
 
-<table class="bordered-table zebra-striped">
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Created at</th>
-      <th width="40px"></th>
-    </tr>
-  </thead>
-  <tbody>
-  <% pastes.each do |paste| %>
-    <tr>
-      <td>
+<div class="row">
+  <div class="span3">
+    <div class="well" style="padding: 8px 0;">
+      <ul class="nav list">
+        <li class="active"><a href="#"><i class="home"></i> All pastes</a></li>
+        <li><a href="#"><i class="lock"></i> Your pastes</a></li>
+        <li><a href="#"><i class="th-large"></i> Algo</a></li>
+        <li>&nbsp;</li>
+        <li><a href="#"><i class="cog"></i> Manage groups</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="span6">
+    <ul class="pastes nav pills stacked">
+      <% pastes.each do |paste| %>
+      <li>
         <%= link_to paste do %>
           <%= paste.name.presence || raw("<em>unnamed</em>") %>
+          <span class="date"><%= "#{time_ago_in_words(paste.created_at)} ago" %></span>
         <% end %>
-      <td>
-        <%= link_to "#{time_ago_in_words(paste.created_at)} ago", paste %>
-      </td>
-      <td style="text-align: center">
-        <%= link_to image_tag("edit.png"), edit_paste_path(paste) %>
-        <%= link_to image_tag("delete.png"), paste, :confirm => 'Are you sure?', :method => :delete %>
-      </td>
-    </tr>
-  <% end %>
-  </tbody>
-</table>
+      </li>
+      <% end %>
+    </ul>
 
-<%= paginate(pastes, :theme => 'twitter-bootstrap') %>
+    <%= paginate(pastes, :theme => 'twitter-bootstrap') %>
+  </div>
+</div>
