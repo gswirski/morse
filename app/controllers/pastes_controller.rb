@@ -18,6 +18,14 @@ class PastesController < ApplicationController
     end
   end
 
+  def index
+    respond_with(pastes)
+  end
+
+  def show
+    respond_with(paste)
+  end
+
   def download
     send_data paste.code,
       :filename => paste.filename,
