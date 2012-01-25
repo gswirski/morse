@@ -18,6 +18,10 @@
   color: #666;
 }
 
+select {
+  margin-top: -2px;
+}
+
 pre {
   -moz-border-radius: 5px;
   -moz-box-shadow: 0 -1px 0 #444;
@@ -39,7 +43,7 @@ pre {
   margin-bottom: 20px;
 }
 
-code, pre, .line-numbers, .paste-code {
+code, pre, .line-numbers, #paste_code {
   font-family: "Monaco", "Courier New", monospace;
   font-size: 12px;
   line-height: 18px;

@@ -1,9 +1,10 @@
 <%= form_for(paste) do |f| %>
   <% if params[:action] == "edit" %>
-    <div class="pull-right">
-      <%= f.submit "Update code", :class => "btn primary" %>
-      or
-      <%= link_to "go back", paste %>
+    <div class="pull-right btn-group">
+      <%= f.submit "Save", :class => "btn" %>
+      <%= link_to paste, :class => "btn danger" do %>
+        <i class="remove"></i>
+      <% end %>
     </div>
   <% else %>
     <%= f.submit "Paste code", :class => "btn primary pull-right" %>
