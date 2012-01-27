@@ -39,12 +39,19 @@ class PastesController < ApplicationController
     end
   end
 
+  def edit
+    authorize! :manage, paste
+    respond_with paste
+  end
+
   def update
+    authorize! :manage, paste
     paste.save
     respond_with paste
   end
 
   def destroy
+    authorize! :manage, paste
     paste.destroy
     respond_with paste
   end

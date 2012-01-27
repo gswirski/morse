@@ -11,6 +11,7 @@
       <i class="download-alt"></i> Download file
     <% end %>
     </div>
+    <% if can? :manage, paste %>
     <div class="btn-group">
     <%= link_to edit_paste_path(paste), :class => "btn" do %>
       <i class="edit"></i> Edit
@@ -19,6 +20,7 @@
       <i class="trash"></i> Delete
     <% end %>
     </div>
+    <% end %>
 <% end %>
 
 <div class="code-container">
