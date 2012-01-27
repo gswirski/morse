@@ -22,7 +22,48 @@ class Config:
         cfg.write(cfg_content)
         cfg.close()
 
-t = Config()
-print t.attributes
-t.attributes['dodatkowy parametr'] = 'dodatkowy kutas'
-t.save_config()
+class Pastie:
+    def __init__(self):
+        self.request = {}
+
+    def syntax_from_name(self):
+        if 'paste[name]' in self.request.keys():
+            ext = os.path.splitext(self.request['paste[name]'])[1]
+        if ext:
+            self.request['paste[syntax]'] = ext[1:]
+        else:
+            self.request['paste[syntax]'] = 'txt'
+
+    def set_token(self, token=None):
+        t = Config()
+        if token is not None:
+            self.request['auth_token'] = token
+        elif 'auth_token' in t.attributes.keys():
+            self.request['auth_token'] = t.attributes['auth_token']
+
+    def set_name(self, path=None, name=None):
+        if name is not None:
+            self.request['paste[name]'] = name
+        elif path is not None:
+            self.request['paste[name]'] = os.path.basename(path)
+
+    def set_syntax(self, syntax=None):
+        if syntax is not None:
+            self.request['paste[syntax]'] = syntax
+        else:
+            self.syntax_from_name()
+
+    def set_code(self, filename=None):
+        if filename is not None:
+            code = file(filename, 'r')
+            self.request['paste[code]'] = code.read()
+            code.close()
+        else:
+            self.request['paste[code]'] = sys.stdin.read()
+
+    def send_paste(self):
+        URL = 'http://0.0.0.0:3000/pastes.shell'
+        data = urllib.urlencode(self.request)
+        ans = urllib.urlopen(URL, data).read()
+        print ans
+
