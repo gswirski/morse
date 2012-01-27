@@ -1,0 +1,28 @@
+#!/usr/bin/env python
+import urllib
+import json
+import getopt
+import os.path
+import sys
+
+class Config:
+    def __init__(self):
+        self.attributes = {}
+        cfg = file(os.path.expanduser('~/.morserc'), 'r')
+        for line in cfg:
+            t = line.split(':', 1)
+            self.attributes[t[0].strip()] = t[1].strip()
+        cfg.close()
+
+    def save_config(self):
+        cfg = file(os.path.expanduser('~/.morserc'), 'w')
+        cfg_content = ''
+        for key, item in self.attributes.items():
+            cfg_content += key + ': ' + item + '\n'
+        cfg.write(cfg_content)
+        cfg.close()
+
+t = Config()
+print t.attributes
+t.attributes['dodatkowy parametr'] = 'dodatkowy kutas'
+t.save_config()
