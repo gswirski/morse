@@ -1,4 +1,5 @@
 class GroupsController < ApplicationController
+  expose(:invitations) { current_user.invitations }
   expose(:groups) { current_user.groups }
   expose(:group)
 

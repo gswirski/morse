@@ -40,3 +40,8 @@ i {
 .pagination ul {
   background: #FAFAFA;
 }
+
+.table {
+  background: #FFF;
+  box-shadow: inset 0 0 3px #E0E0E0;
+}
