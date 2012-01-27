@@ -1,5 +1,6 @@
 class Paste < ActiveRecord::Base
   belongs_to :user
+  has_and_belongs_to_many :grups
 
   before_create :generate_slug
   before_save :negotiate_attributes

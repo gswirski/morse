@@ -7,6 +7,8 @@ Morse::Application.routes.draw do
     get "download", :on => :member
   end
 
+  resources :groups
+
   root :to => "pastes#new"
 
   # The priority is based upon order of creation:

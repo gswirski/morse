@@ -5,10 +5,17 @@
     <div class="well" style="padding: 8px 0;">
       <ul class="nav list">
         <li class="active"><a href="#"><i class="home"></i> All pastes</a></li>
-        <li><a href="#"><i class="lock"></i> Your pastes</a></li>
-        <li><a href="#"><i class="th-large"></i> Algo</a></li>
+        <% if groups.any? %><li><a href="#"><i class="lock"></i> Your pastes</a></li><% end %>
+        <% groups.each do |group| %>
+        <li><a href="#"><i class="th-large"></i> <%= group.name %></a></li>
+        <% end %>
         <li>&nbsp;</li>
-        <li><a href="#"><i class="cog"></i> Manage groups</a></li>
+        <li>
+          <%= link_to groups_path do %>
+            <i class="cog"></i> Manage groups
+            <% if invitations > 0 %>(<%= invitations %>)<% end %>
+          <% end %>
+        </li>
       </ul>
     </div>
   </div>

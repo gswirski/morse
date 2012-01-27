@@ -1,0 +1,28 @@
+<% content_for :title, "Groups" %>
+
+<% content_for :actions do %>
+    <div class="btn-group">
+    <%= link_to new_group_path, :class => "btn" do %>
+      <i class="plus"></i> New group
+    <% end %>
+    </div>
+<% end %>
+
+<h2>Invitations</h2>
+<table class="table table-grouped">
+  <tbody>
+    <tr>
+      <td>abc</td>
+      <td>abc</td>
+      <td>abc</td>
+    </tr>
+    <tr>
+      <td>abc</td>
+      <td>abc</td>
+      <td>abc</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2>Groups</h2>
+<%= groups.inspect %>

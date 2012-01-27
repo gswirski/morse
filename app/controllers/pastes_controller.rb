@@ -18,6 +18,9 @@ class PastesController < ApplicationController
     end
   end
 
+  expose(:groups) { current_user.groups }
+  expose(:invitations) { current_user.invitations.count }
+
   def index
     respond_with(pastes)
   end
