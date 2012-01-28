@@ -1,10 +1,9 @@
 class Paste < ActiveRecord::Base
   belongs_to :user
-  has_and_belongs_to_many :grups
+  has_and_belongs_to_many :groups
 
   before_create :generate_slug
   before_save :negotiate_attributes
-  before_save :colorize
 
   def to_param
     slug
@@ -12,6 +11,14 @@ class Paste < ActiveRecord::Base
 
   def filename
     read_attribute(:name).presence || "#{slug}.#{syntax}"
+  end
+
+  def highlighted
+    if ! highlighted_at || highlighted_at < updated_at
+      colorize
+      save
+    end
+    read_attribute(:highlighted)
   end
 
   def file=(file)
@@ -61,5 +68,6 @@ class Paste < ActiveRecord::Base
 
       io.read
     end
+    self.highlighted_at = Time.now
   end
 end
