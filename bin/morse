@@ -1,82 +1,110 @@
 #!/usr/bin/env python
-import sys
+import urllib
+import json
 import getopt
-from os.path import expanduser, splitext
-from commands import getoutput
+import os.path
+import sys
+help_str = '''Usage: morse [options] file (for pasting from file)
+       morse [options] (for pasting from standard input)
+-l syntax\t\t set syntax for paste
+-n name\t\t\t set paste's name
+--token=TOKEN\t\t set token to login to your account
+\t\t\t (without this morse will try to get token from ~/.morserc)
+--set-token=TOKEN\t write new token to ~/.morserc
+--no-login\t\t don't login to account'''
+class Config:
+    def __init__(self):
+        self.attributes = {}
+        cfg = file(os.path.expanduser('~/.morserc'), 'r')
+        for line in cfg:
+            t = line.split(':', 1)
+            self.attributes[t[0].strip()] = t[1].strip()
+        cfg.close()
 
-helpStr = '''Usage: morse [options][file]
--l syntax\t define syntax of paste
--t \t\t set syntax to plain text
---token=TOKEN \t set TOKEN to login to your account (without this morse will try to get token from ~/.morserc)
---no-login \t don't login to account'''
+    def save_config(self):
+        cfg = file(os.path.expanduser('~/.morserc'), 'w')
+        cfg_content = ''
+        for key, item in self.attributes.items():
+            cfg_content += key + ': ' + item + '\n'
+        cfg.write(cfg_content)
+        cfg.close()
 
-def getTokenFromConf():
-	conf = file(expanduser('~/.morserc'), "r")
-	t = conf.readline().strip()
-	conf.close()
-	return t
+class Paste:
+    def __init__(self):
+        self.request = {}
 
-def getSyntaxFromExt(filename):
-	if filename == '@-':
-		return '-'
-	if splitext(filename)[1]:
-		return splitext(filename)[1][1:]
-	else:
-		return '-'
+    def syntax_from_name(self):
+        if 'paste[name]' in self.request.keys():
+            ext = os.path.splitext(self.request['paste[name]'])[1]
+            if ext:
+                self.request['paste[syntax]'] = ext[1:]
+            else:
+                self.request['paste[syntax]'] = 'txt'
 
-def setSyntax(value, curlArgs):
-	curlArgs += ['-F']
-	curlArgs += ['"paste[syntax]='+value+'"']
+    def set_token(self, token=None):
+        t = Config()
+        if token is not None:
+            self.request['auth_token'] = token
+        elif 'auth_token' in t.attributes.keys():
+            self.request['auth_token'] = t.attributes['auth_token']
 
-def setToken(value, curlArgs):
-	curlArgs += ['-F']
-	curlArgs += ['"auth_token='+value+'"']
+    def set_name(self, path=None, name=None):
+        if name is not None:
+            self.request['paste[name]'] = name
+        elif path is not None:
+            self.request['paste[name]'] = os.path.basename(path)
 
-def setName(value, curlArgs):
-	curlArgs += ['-F']
-	curlArgs += ['"paste[name]='+value+'"']
+    def set_syntax(self, syntax=None):
+        if syntax is not None:
+            self.request['paste[syntax]'] = syntax
+        else:
+            self.syntax_from_name()
 
-def setFile(value, curlArgs):
-	curlArgs += ['-F']
-	curlArgs += ['"paste[file]='+value+'"']
-	
+    def set_code(self, filename=None):
+        if filename is not None:
+            code = file(filename, 'r')
+            self.request['paste[code]'] = code.read()
+            code.close()
+        else:
+            self.request['paste[code]'] = sys.stdin.read()
+
+    def send_paste(self):
+        URL = 'http://0.0.0.0:3000/pastes.shell'
+        data = urllib.urlencode(self.request)
+        ans = urllib.urlopen(URL, data).read()
+        return ans
+
+short_args = 'l:n: '
+long_args = ['token=', 'no-login', 'set-token=']
+
 try:
-	opts, args = getopt.gnu_getopt(sys.argv[1:], 'tl: ', ['token=', 'no-login'])
+    opts, args = getopt.gnu_getopt(sys.argv[1:], short_args, long_args)
 except getopt.GetoptError:
-	print helpStr
-	sys.exit(0)
+    print help_str
+    sys.exit(0)
 
 opts = dict(opts)
-curlArgs = ['curl']
 
-if args:
-	filename = args[0]
-	setName(filename, curlArgs)
-else:
-	filename = '-'
+cfg = Config()
+if '--set-token' in opts.keys():
+    cfg.attributes['auth_token'] = opts['--set-token']
+    cfg.save_config()
+    exit(0)
 
-if '-t' in opts.keys():
-	syntax = 'text'
-elif '-l' in opts.keys():
-	syntax = opts['-l']
-else:
-	syntax = getSyntaxFromExt(filename)
+path = (args[0] if args else None)
+name = (opts['-n'] if '-n' in opts.keys() else None)
+syntax = (opts['-l'] if '-l' in opts.keys() else None)
+token = (opts['--token'] if '--token' in opts.keys() else None)
 
-if '--no-login' in opts.keys():
-	token = False
-elif '--token' in opts.keys():
-	token = opts['--token']
-else:
-	token = getTokenFromConf()
+paste = Paste()
+if '--no-login' not in opts.keys():
+    paste.set_token(token)
 
-if token:
-	setToken(token, curlArgs)
-setSyntax(syntax, curlArgs)
-setFile('@'+filename, curlArgs)
-URL = 'http://morse.herokuapp.com/pastes.shell'
+paste.set_name(path, name)
+paste.set_syntax(syntax)
+paste.set_code(path)
+link = paste.send_paste()
+print link
 
-curlArgs += ['-F']
-curlArgs += ['"paste[name]=e4.cpp"']
 
-curlArgs += [URL]
-print getoutput(' '.join(curlArgs))
+
