@@ -15,11 +15,17 @@ help_str = '''Usage: morse [options] file (for pasting from file)
 class Config:
     def __init__(self):
         self.attributes = {}
-        cfg = file(os.path.expanduser('~/.morserc'), 'r')
-        for line in cfg:
-            t = line.split(':', 1)
-            self.attributes[t[0].strip()] = t[1].strip()
-        cfg.close()
+        try:
+            cfg = file(os.path.expanduser('~/.morserc'), 'r')
+            for line in cfg:
+                t = line.split(':', 1)
+                try:
+                    self.attributes[t[0].strip()] = t[1].strip()
+                except IndexError:
+                    pass
+            cfg.close()
+        except IOError:
+            pass
 
     def save_config(self):
         cfg = file(os.path.expanduser('~/.morserc'), 'w')
@@ -74,37 +80,46 @@ class Paste:
         ans = urllib.urlopen(URL, data).read()
         return ans
 
-short_args = 'l:n: '
-long_args = ['token=', 'no-login', 'set-token=']
+def main():
+    short_args = 'l:n: '
+    long_args = ['token=', 'no-login', 'set-token=']
+
+    try:
+        opts, args = getopt.gnu_getopt(sys.argv[1:], short_args, long_args)
+    except getopt.GetoptError:
+        print help_str
+        sys.exit(0)
+
+    opts = dict(opts)
+
+    cfg = Config()
+    if '--set-token' in opts.keys():
+        cfg.attributes['auth_token'] = opts['--set-token']
+        cfg.save_config()
+        sys.exit(0)
+
+    path = (args[0] if args else None)
+    name = (opts['-n'] if '-n' in opts.keys() else None)
+    syntax = (opts['-l'] if '-l' in opts.keys() else None)
+    token = (opts['--token'] if '--token' in opts.keys() else None)
+
+    paste = Paste()
+    if '--no-login' not in opts.keys():
+        paste.set_token(token)
+
+    paste.set_name(path, name)
+    paste.set_syntax(syntax)
+    paste.set_code(path)
+    link = paste.send_paste()
+    print link
 
 try:
-    opts, args = getopt.gnu_getopt(sys.argv[1:], short_args, long_args)
-except getopt.GetoptError:
-    print help_str
+    main()
+except KeyboardInterrupt:
+    pass
+except SystemExit:
     sys.exit(0)
-
-opts = dict(opts)
-
-cfg = Config()
-if '--set-token' in opts.keys():
-    cfg.attributes['auth_token'] = opts['--set-token']
-    cfg.save_config()
-    exit(0)
-
-path = (args[0] if args else None)
-name = (opts['-n'] if '-n' in opts.keys() else None)
-syntax = (opts['-l'] if '-l' in opts.keys() else None)
-token = (opts['--token'] if '--token' in opts.keys() else None)
-
-paste = Paste()
-if '--no-login' not in opts.keys():
-    paste.set_token(token)
-
-paste.set_name(path, name)
-paste.set_syntax(syntax)
-paste.set_code(path)
-link = paste.send_paste()
-print link
-
-
+except:
+    print 'Runtime error'
+    sys.exit(1)
 
