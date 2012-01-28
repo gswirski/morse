@@ -96,7 +96,7 @@ def main():
     if '--set-token' in opts.keys():
         cfg.attributes['auth_token'] = opts['--set-token']
         cfg.save_config()
-        exit(0)
+        sys.exit(0)
 
     path = (args[0] if args else None)
     name = (opts['-n'] if '-n' in opts.keys() else None)
@@ -117,7 +117,9 @@ try:
     main()
 except KeyboardInterrupt:
     pass
+except SystemExit:
+    sys.exit(0)
 except:
     print 'Runtime error'
-    exit(1)
+    sys.exit(1)
 
