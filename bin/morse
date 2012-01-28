@@ -15,11 +15,17 @@ help_str = '''Usage: morse [options] file (for pasting from file)
 class Config:
     def __init__(self):
         self.attributes = {}
-        cfg = file(os.path.expanduser('~/.morserc'), 'r')
-        for line in cfg:
-            t = line.split(':', 1)
-            self.attributes[t[0].strip()] = t[1].strip()
-        cfg.close()
+        try:
+            cfg = file(os.path.expanduser('~/.morserc'), 'r')
+            for line in cfg:
+                t = line.split(':', 1)
+                try:
+                    self.attributes[t[0].strip()] = t[1].strip()
+                except IndexError:
+                    pass
+            cfg.close()
+        except IOError:
+            pass
 
     def save_config(self):
         cfg = file(os.path.expanduser('~/.morserc'), 'w')
