@@ -33,8 +33,20 @@ a:hover img, a:hover i {
   text-decoration: none;
 }
 
+a.danger i {
+  opacity: 0.8;
+}
+
+a.danger:hover i {
+  opacity: 0.9;
+}
+
 i {
-  background-image:url(/assets/glyphicons-halflings-sprite.png);
+  background-image: url(/assets/glyphicons-halflings-sprite.png);
+}
+
+.white, .btn.danger i, .btn.primary i {
+  background-image: url(/assets/glyphicons-halflings-sprite-w.png);
 }
 
 .pagination ul {
