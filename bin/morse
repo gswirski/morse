@@ -29,7 +29,7 @@ class Config:
         cfg.write(cfg_content)
         cfg.close()
 
-class Pastie:
+class Paste:
     def __init__(self):
         self.request = {}
 
@@ -96,7 +96,7 @@ name = (opts['-n'] if '-n' in opts.keys() else None)
 syntax = (opts['-l'] if '-l' in opts.keys() else None)
 token = (opts['--token'] if '--token' in opts.keys() else None)
 
-paste = Pastie()
+paste = Paste()
 if '--no-login' not in opts.keys():
     paste.set_token(token)
 
