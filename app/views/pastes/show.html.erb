@@ -8,16 +8,16 @@
 <% content_for :actions do %>
     <div class="btn-group">
     <%= link_to download_paste_path(paste), :class => "btn" do %>
-      <i class="download-alt"></i> Download file
+      <i class="icon-download-alt"></i> Download file
     <% end %>
     </div>
     <% if can? :manage, paste %>
     <div class="btn-group">
     <%= link_to edit_paste_path(paste), :class => "btn" do %>
-      <i class="edit"></i> Edit
+      <i class="icon-edit"></i> Edit
     <% end %>
-    <%= link_to paste, :method => :delete, :confirm => "Are you sure?", :class => "btn danger" do %>
-      <i class="trash"></i> Delete
+    <%= link_to paste, :method => :delete, :confirm => "Are you sure?", :class => "btn btn-danger" do %>
+      <i class="icon-trash icon-white"></i> Delete
     <% end %>
     </div>
     <% end %>

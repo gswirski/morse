@@ -2,15 +2,14 @@
   <% if params[:action] == "edit" %>
     <div class="pull-right btn-group">
       <%= link_to "#", :class => "btn", :onclick => "$('#edit_#{dom_id(paste)}').submit()" do %>
-        <i class="ok"></i> Save
+        <i class="icon-ok"></i> Save
       <% end %>
-      <!--<%= f.submit "Save", :class => "btn" %>-->
-      <%= link_to paste, :class => "btn danger", :confirm => "Discard changes?" do %>
-        <i class="remove"></i>
+      <%= link_to paste, :class => "btn btn-danger", :confirm => "Discard changes?" do %>
+        <i class="icon-remove icon-white"></i>
       <% end %>
     </div>
   <% else %>
-    <%= f.submit "Paste code", :class => "btn primary pull-right" %>
+    <%= f.submit "Paste code", :class => "btn btn-primary pull-right" %>
   <% end %>
 
   <p class="form-inline paste-actions">
