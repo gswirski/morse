@@ -1,17 +1,5 @@
 class User < ActiveRecord::Base
   has_many :pastes
-  has_many :user_groups
-  has_many :groups, :through => :user_groups
-
-  has_many  :groups, :through => :user_groups,
-            :class_name => "Group",
-            :source => :group,
-            :conditions => ['user_groups.is_accepted = ?', true]
-
-  has_many  :invitations, :through => :user_groups,
-            :class_name => "Group",
-            :source => :group,
-            :conditions => ['user_groups.is_accepted = ?', false]
 
   # Include default devise modules. Others available are:
   # :encryptable, :confirmable, :lockable, :timeoutable and :omniauthable

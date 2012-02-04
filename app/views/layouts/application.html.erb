@@ -29,25 +29,18 @@
                   <i class="user"></i> Users
                 <% end %>
                 </li>
-              <% end %>
-            <li>
-              <%= link_to groups_path do %>
-                <i class="book"></i> Groups
-              <% end %>
-            </li>
-              <% if current_user.admin? %>
-              <li>
-                <%= link_to '#' do %>
-                  <i class="signal"></i> Statistics
+                <li>
+                  <%= link_to '#' do %>
+                    <i class="signal"></i> Statistics
+                  <% end %>
+                </li>
+                <li>
+                  <%= link_to '#' do %>
+                    <i class="time"></i> Logs
+                  <% end %>
+                </li>
                 <% end %>
-              </li>
-              <li>
-                <%= link_to '#' do %>
-                  <i class="time"></i> Logs
-                <% end %>
-              </li>
               <% end %>
-            <% end %>
           </ul>
 
           <ul class="user-actions navigation">

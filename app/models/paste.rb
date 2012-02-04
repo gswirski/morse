@@ -1,9 +1,10 @@
 class Paste < ActiveRecord::Base
   belongs_to :user
-  has_and_belongs_to_many :groups
 
   before_create :generate_slug
   before_save :negotiate_attributes
+
+  default_scope order("created_at DESC")
 
   def to_param
     slug

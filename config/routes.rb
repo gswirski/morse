@@ -1,5 +1,6 @@
 Morse::Application.routes.draw do
-  devise_for :users, :controllers => { :registrations => "registrations" } do
+  devise_for :users, :controllers => { :registrations => "registrations" }
+  devise_scope :user do
     post "users/edit/reset_token" => "registrations#reset_token"
   end
 

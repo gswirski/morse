@@ -11,18 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120128211028) do
-
-  create_table "groups", :force => true do |t|
-    t.string   "name"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  create_table "groups_pastes", :force => true do |t|
-    t.integer "paste_id"
-    t.integer "group_id"
-  end
+ActiveRecord::Schema.define(:version => 20120204134649) do
 
   create_table "pastes", :force => true do |t|
     t.string   "name"
@@ -34,15 +23,6 @@ ActiveRecord::Schema.define(:version => 20120128211028) do
     t.datetime "updated_at"
     t.text     "highlighted"
     t.datetime "highlighted_at"
-  end
-
-  create_table "user_groups", :force => true do |t|
-    t.integer  "user_id"
-    t.integer  "group_id"
-    t.boolean  "is_accepted"
-    t.boolean  "is_owner"
-    t.datetime "created_at"
-    t.datetime "updated_at"
   end
 
   create_table "users", :force => true do |t|
