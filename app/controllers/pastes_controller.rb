@@ -19,13 +19,11 @@ class PastesController < ApplicationController
       :type => "application/shell"
   end
 
-  def new
-    respond_with(paste)
-  end
-
   def create
     paste.save
-    respond_with(paste)
+    respond_with(paste) do |format|
+      format.shell { render :text => paste_url(paste) }
+    end
   end
 
   def update
