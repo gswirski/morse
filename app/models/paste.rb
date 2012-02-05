@@ -69,6 +69,12 @@ class Paste < ActiveRecord::Base
 
       io.read
     end
+
+    if $?.exitstatus != 0
+      self.syntax = "txt"
+      colorize
+    end
+
     self.highlighted_at = Time.now
   end
 end
