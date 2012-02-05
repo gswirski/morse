@@ -24,12 +24,18 @@ class PastesController < ApplicationController
     respond_with(paste)
   end
 
+  def edit
+    authorize! :manage, paste
+  end
+
   def update
+    authorize! :manage, paste
     paste.update_attributes(params[:paste])
     respond_with(paste)
   end
 
   def destroy
+    authorize! :manage, paste
     paste.destroy
     respond_with(paste)
   end
