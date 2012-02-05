@@ -35,7 +35,7 @@ class PastesController < ApplicationController
   end
 
   def pastes
-    @pastes ||= current_user.pastes
+    @pastes ||= Paste.by_user(current_user)
   end
 
   def paste
