@@ -14,9 +14,11 @@ class PastesController < ApplicationController
   end
 
   def download
-    send_data paste.code,
+    send_data(
+      paste.code,
       :filename => paste.filename,
       :type => "application/shell"
+    )
   end
 
   def create
@@ -25,17 +27,17 @@ class PastesController < ApplicationController
   end
 
   def edit
-    authorize! :manage, paste
+    authorize!(:manage, paste)
   end
 
   def update
-    authorize! :manage, paste
+    authorize!(:manage, paste)
     paste.update_attributes(params[:paste])
     respond_with(paste)
   end
 
   def destroy
-    authorize! :manage, paste
+    authorize!(:manage, paste)
     paste.destroy
     respond_with(paste)
   end
