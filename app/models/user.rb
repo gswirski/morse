@@ -23,6 +23,13 @@ class User < ActiveRecord::Base
     username
   end
 
+  def self.list
+    joins(:pastes).
+    select("username, count(pastes.id) as pastes_count").
+    group("username").
+    order("username")
+  end
+
   protected
 
   def password_required?
