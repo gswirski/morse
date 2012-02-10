@@ -1,14 +1,39 @@
 <% content_for :title, "Browse pastes" %>
 
-<ul class="pastes nav nav-pills nav-stacked">
-  <% pastes.each do |paste| %>
-  <li>
-    <%= link_to paste do %>
-      <span class="date pull-right"><%= "#{time_ago_in_words(paste.created_at)} ago" %></span>
-      <i class="icon-file"></i> <%= paste.name.presence || raw("<em>unnamed</em>") %>
-    <% end %>
-  </li>
-  <% end %>
-</ul>
+<div class="row">
+  <div class="span3">
+    <div class="well" style="padding: 8px 0;">
+      <ul class="nav nav-list">
+        <li class="nav-header">Sort by</li>
+        <li><a href="#"><i class="icon-book"></i> Name</a></li>
+        <li><a href="#"><i class="icon-calendar"></i> Date</a></li>
+        <li class="nav-header">Archive</li>
+        <li><a href="#"><i class="icon-eye-open"></i> Show all</a></li>
+        <% @months.each do |month| %>
+          <li>
+            <a href="#">
+              <span class="label pull-right"><%= month.count %></span>
+              <i class="icon-time"></i>
+              <%= month.created_at.strftime("%B %Y") %>
+            </a>
+            
+          </li>
+        <% end %>
+      </ul>
+    </div>
+  </div>
+  <div class="span6">
+    <ul class="pastes nav nav-pills nav-stacked">
+      <% pastes.each do |paste| %>
+      <li>
+        <%= link_to paste do %>
+          <span class="date pull-right"><%= "#{time_ago_in_words(paste.created_at)} ago" %></span>
+          <i class="icon-file"></i> <%= paste.name.presence || raw("<em>unnamed</em>") %>
+        <% end %>
+      </li>
+      <% end %>
+    </ul>
 
-<%= paginate(pastes, :theme => 'twitter-bootstrap') %>
+    <%= paginate(pastes, :theme => 'twitter-bootstrap') %>
+  </div>
+</div>

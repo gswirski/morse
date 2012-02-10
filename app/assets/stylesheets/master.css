@@ -41,6 +41,17 @@ a:hover .icon-white {
   opacity: 0.9;
 }
 
+.nav .label {
+  background: none;
+  color: #999;
+  margin: 0px;
+  padding: 0px;
+}
+
+.nav a:hover .label {
+  color: #666;
+}
+
 .pagination ul {
   background: #FAFAFA;
 }
