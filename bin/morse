@@ -68,14 +68,18 @@ class Paste:
 
     def set_code(self, filename=None):
         if filename is not None:
-            code = file(filename, 'r')
-            self.request['paste[code]'] = code.read()
-            code.close()
+            try:
+                code = file(filename, 'r')
+                self.request['paste[code]'] = code.read()
+                code.close()
+            except IOError:
+                print 'File {0} does not exist!'.format(filename)
+                sys.exit(0)
         else:
             self.request['paste[code]'] = sys.stdin.read()
 
     def send_paste(self):
-        URL = 'http://morse.herokuapp.com/pastes.shell'
+        URL = 'http://morse.swirski.name/pastes.shell'
         data = urllib.urlencode(self.request)
         ans = urllib.urlopen(URL, data).read()
         return ans
