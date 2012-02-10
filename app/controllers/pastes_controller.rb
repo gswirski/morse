@@ -45,7 +45,8 @@ class PastesController < ApplicationController
   end
 
   def pastes
-    @pastes ||= Paste.by_user(current_user)
+    @actor ||= User.find_by_username(params[:user_id]) if params[:user_id]
+    @pastes ||= Paste.by_user(@actor || current_user)
   end
 
   def paste

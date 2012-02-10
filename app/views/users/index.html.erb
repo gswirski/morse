@@ -1,0 +1,18 @@
+<% content_for :title, "Users" %>
+
+<div class="row">
+  <div class="span3">
+    <ul class="pastes nav nav-pills nav-stacked">
+      <% @users.each do |user| %>
+      <li>
+        <%= link_to user_pastes_path(user) do %>
+          <span class="label pull-right">8</span>
+          <i class="icon-user"></i> <%= user.username %>
+        <% end %>
+      </li>
+      <% end %>
+    </ul>
+</div>
+</div>
+
+<%= paginate(@users, :theme => 'twitter-bootstrap') %>

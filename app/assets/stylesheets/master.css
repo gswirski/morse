@@ -28,17 +28,17 @@ a img, a i {
   opacity: 0.6;
 }
 
-a:hover img, a:hover i {
+a:hover img, a:hover i{
   opacity: 0.8;
   text-decoration: none;
 }
 
-a .icon-white {
-  opacity: 0.8;
+a .icon-white, .nav .active i {
+  opacity: 0.9;
 }
 
-a:hover .icon-white {
-  opacity: 0.9;
+a:hover .icon-white, .nav .active a:hover i  {
+  opacity: 1;
 }
 
 .nav .label {

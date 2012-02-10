@@ -9,6 +9,9 @@ Morse::Application.routes.draw do
   end
 
   resources :groups
+  resources :users, :only => :index do
+    resources :pastes
+  end
 
   root :to => "pastes#new"
 

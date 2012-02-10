@@ -5,10 +5,15 @@
     <div class="well" style="padding: 8px 0;">
       <ul class="nav nav-list">
         <li class="nav-header">Sort by</li>
-        <li><a href="#"><i class="icon-book"></i> Name</a></li>
         <li><a href="#"><i class="icon-calendar"></i> Date</a></li>
+        <li><a href="#"><i class="icon-book"></i> Name</a></li>
         <li class="nav-header">Archive</li>
-        <li><a href="#"><i class="icon-eye-open"></i> Show all</a></li>
+        <li>
+          <a href="#">
+            <span class="label pull-right">9</span>
+            <i class="icon-eye-open"></i> Show all
+        </a>
+        </li>
         <% @months.each do |month| %>
           <li>
             <a href="#">
@@ -21,6 +26,7 @@
         <% end %>
       </ul>
     </div>
+
   </div>
   <div class="span6">
     <ul class="pastes nav nav-pills nav-stacked">

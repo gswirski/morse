@@ -19,6 +19,10 @@ class User < ActiveRecord::Base
   validates_confirmation_of :password, :if => :password_required?
   validates_length_of       :password, :within => 3..128, :allow_blank => true
 
+  def to_param
+    username
+  end
+
   protected
 
   def password_required?
