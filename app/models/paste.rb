@@ -5,7 +5,7 @@ class Paste < ActiveRecord::Base
   before_save :negotiate_attributes
 
   default_scope order("created_at DESC")
-  scope :by_user, lambda { |user| where("user_id = ?", user.id) }
+  scope :by_user, lambda { |user| where(:user_id => user.id) }
   scope :list, lambda { select([:id, :slug, :name, :syntax, :created_at]) }
 
   SYNTAXES = [['Plain text', 'txt'], ['C++', 'cpp'], ['Ruby', 'rb'],
