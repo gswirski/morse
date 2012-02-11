@@ -1,4 +1,5 @@
 class Paste < ActiveRecord::Base
+  extend SqlFunk::Base
   belongs_to :user
 
   before_create :generate_slug

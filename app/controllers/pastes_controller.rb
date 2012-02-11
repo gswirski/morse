@@ -5,8 +5,7 @@ class PastesController < ApplicationController
   helper_method :pastes, :paste
 
   def index
-    @months = pastes.select("count(id) as count, created_at").
-    group("strftime('%Y-%m', created_at)")
+    @months = pastes.count_by(:created_at, :group_by => "month").reorder("month DESC")
     @pastes = pastes.list.page(params[:page]).per(10)
     respond_with(pastes)
   end

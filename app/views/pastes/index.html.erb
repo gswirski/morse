@@ -17,9 +17,9 @@
         <% @months.each do |month| %>
           <li>
             <a href="#">
-              <span class="label pull-right"><%= month.count %></span>
+              <span class="label pull-right"><%= month.count_all %></span>
               <i class="icon-time"></i>
-              <%= month.created_at.strftime("%B %Y") %>
+              <%= Time.parse(month.month + "-01").strftime("%B %Y") %>
             </a>
             
           </li>
