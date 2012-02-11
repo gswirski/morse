@@ -4,6 +4,7 @@ class Paste < ActiveRecord::Base
 
   before_create :generate_slug
   before_save :negotiate_attributes
+  before_save :clear_highlight_cache
 
   default_scope order("created_at DESC")
   scope :by_user, lambda { |user| where(:user_id => user.id) }
@@ -41,6 +42,12 @@ class Paste < ActiveRecord::Base
 
   def negotiate_attributes
     self.syntax = self.syntax.presence || ext_from_name || "txt"
+  end
+
+  def clear_highlight_cache
+    unless changes.include?(:highlighted)
+      self.highlighted = nil
+    end
   end
 
   def colorize
