@@ -51,7 +51,7 @@ class PastesController < ApplicationController
 
   def paste
     return @paste if @paste
-    
+
     slug = params[:paste_id] || params[:id]
     if slug
       @paste = Paste.find_by_slug(slug)

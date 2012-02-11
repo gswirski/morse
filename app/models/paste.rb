@@ -8,8 +8,11 @@ class Paste < ActiveRecord::Base
   scope :by_user, lambda { |user| where("user_id = ?", user.id) }
   scope :list, lambda { select([:id, :slug, :name, :syntax, :created_at]) }
 
-  def to_param
-    slug
+  SYNTAXES = [['Plain text', 'txt'], ['C++', 'cpp'], ['Ruby', 'rb'],
+      ['Python', 'py'], ['PHP', 'php']]
+
+  def file=(file)
+    self.code = file.tempfile.read
   end
 
   def filename
@@ -17,25 +20,11 @@ class Paste < ActiveRecord::Base
   end
 
   def highlighted
-    if ! highlighted_at || highlighted_at < updated_at
-      colorize
-      save
-    end
-    read_attribute(:highlighted)
+    read_attribute(:highlighted) || colorize
   end
 
-  def file=(file)
-    self.code = file.tempfile.read
-  end
-
-  def self.syntax_options
-    [
-      ['Plain text', 'txt'],
-      ['C++', 'cpp'],
-      ['Ruby', 'rb'],
-      ['Python', 'py'],
-      ['PHP', 'php']
-    ]
+  def to_param
+    slug
   end
 
   protected
@@ -58,25 +47,9 @@ class Paste < ActiveRecord::Base
     lexer = "text" if lexer == "txt"
     source = self.code
 
-    command = Pygmentize.bin
-    command += " -Oencoding=utf-8"
-    command += " -l #{lexer}"
-    command += " -f html"
+    processor = Highlighter.new(source, lexer)
+    update_attribute(:highlighted, processor.colorize)
 
-    self.highlighted = IO.popen(command, source ? "r+" : "r") do |io|
-      if source
-        io.puts source
-        io.close_write
-      end
-
-      io.read
-    end
-
-    if $?.exitstatus != 0
-      self.syntax = "txt"
-      colorize
-    end
-
-    self.highlighted_at = Time.now
+    read_attribute(:highlighted)
   end
 end

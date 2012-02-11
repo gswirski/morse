@@ -14,7 +14,7 @@
 
   <p class="form-inline paste-actions">
     <%= f.text_field :name, :placeholder => "File name (optional)" %>
-    <%= f.select :syntax, Paste.syntax_options %>
+    <%= f.select :syntax, Paste::SYNTAXES %>
   </p>
   <%= f.text_area :code, :spellcheck => false %>
 <% end %>
