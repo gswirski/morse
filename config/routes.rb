@@ -13,6 +13,7 @@ Morse::Application.routes.draw do
     resources :pastes
   end
 
+  get 'shell' => "pages#shell", :as => "shell_page"
   root :to => "pastes#new"
 
   # The priority is based upon order of creation:

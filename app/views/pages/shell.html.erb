@@ -1,0 +1,17 @@
+<h1>Pasting files from the command line</h1>
+<h2>Installation</h2>
+<p>
+  Download <a href="/download/0000/00/morse">this little script</a> and put it somewhere in
+  your $PATH. If you are distrustful, <a href="/0000/00/morse">here is the source</a>.
+</p>
+
+<p>Remember to add execute permission:</p>
+<pre>chmod +x morse</pre>
+
+<h2>Usage</h2>
+<p>Morse uses standard input, so you can paste files:</p>
+<code><pre>morse &lt; filename</pre></code>
+<p>or output of your program:</p>
+<code><pre>./your_app | morse</pre></code>
+<p>And for your convenience this also works:</p>
+<code><pre>morse filename</pre></code>
