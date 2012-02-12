@@ -20,6 +20,16 @@ h1 small {
   line-height: 20px;
 }
 
+.pro-tip {
+  font-size: 13px;
+  line-height: inherit;
+}
+
+.pro-tip strong {
+  font-weight: normal;
+  color: black;
+}
+
 .btn-toolbar {
   margin-top: 4px;
 }

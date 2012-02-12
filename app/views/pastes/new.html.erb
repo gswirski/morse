@@ -1,3 +1,13 @@
-<% content_for :title, "New paste" %>
+<% content_for :title do %>
+  <% unless signed_in? %>
+  <small class="pro-tip pull-right">
+    <strong>ProTip&trade;</strong>
+    You can view your previous pastes after you
+    <a href="#">sign up</a>
+  </small>
+  <% end %>
+  New Paste
+<% end %>
 
 <%= render 'form' %>
+<p><i class="icon-lock"></i> All your pastes are <strong>private</strong> by default. No one will have access unless you give him paste URL.</p>
