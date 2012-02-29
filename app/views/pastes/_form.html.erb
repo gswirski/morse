@@ -1,0 +1,9 @@
+<%= form_for(@paste) do |f| %>
+  <p class="form-inline paste-actions">
+    <%= f.text_field :name, :placeholder => "File name (optional)" %>
+    <%= f.select :syntax, Paste::SYNTAXES %>
+  </p>
+  <%= f.text_area :code, :spellcheck => false %>
+  
+  <p><%= f.submit "Paste code", :class => "btn btn-primary pull-right" %></p>
+<% end %>

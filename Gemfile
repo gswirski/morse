@@ -13,7 +13,6 @@ end
 group :development, :test do
   gem 'rspec-rails'
   gem 'cucumber-rails'
-  gem 'webrat'
 
   gem 'database_cleaner'
 end
