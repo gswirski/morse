@@ -15,8 +15,9 @@ Feature: Visitor creates paste
     And I fill in paste_code with "<code>"
     And I click submit button
     Then the result should be <result>
-  
+    And I should see "<code>"
+
   Scenarios:
     | name  | syntax | code                     | result   |
-    | a.cpp | C++    | int main() { return 0; } | redirect |
+    | a.cpp | C++    | int main() { return 0; } | success  |
     | a.cpp | C++    |                          | error    |

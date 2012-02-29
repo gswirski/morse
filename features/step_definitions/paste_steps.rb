@@ -22,7 +22,7 @@ When /^I click submit button$/ do
   page.click_button "Paste code"
 end
 
-Then /^the result should be redirect$/ do
+Then /^the result should be success$/ do
   page.should have_content("You have created paste successfully")
 end
 

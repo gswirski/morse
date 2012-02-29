@@ -13,6 +13,7 @@ end
 group :development, :test do
   gem 'rspec-rails'
   gem 'cucumber-rails'
+  gem 'mocha'
 
   gem 'database_cleaner'
 end
