@@ -23,7 +23,7 @@ When /^I click submit button$/ do
 end
 
 Then /^the result should be success$/ do
-  page.should have_content("You have created paste successfully")
+  page.should have_content("Paste was successfully created.")
 end
 
 Then /^the result should be error$/ do

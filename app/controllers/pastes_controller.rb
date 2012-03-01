@@ -9,12 +9,9 @@ class PastesController < ApplicationController
 
   def create
     @paste = Paste.new(params[:paste])
-    if @paste.save
-      flash[:notice] = 'You have created paste successfully'
-      redirect_to @paste
-    else
-      flash[:alert] = 'An error occurred'
-      render 'new'
+    unless @paste.save
+      flash[:alert] = "An error occurred."
     end
+    respond_with @paste
   end
 end

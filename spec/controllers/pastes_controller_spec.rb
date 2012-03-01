@@ -35,8 +35,8 @@ describe PastesController do
     it "shouldn't persist invalid paste" do
       Paste.any_instance.stubs(:valid?).returns(false)
       post :create, :paste => { "code" => "value" }
-      assigns[:paste].should_not be_persisted
-      response.should render_template('new')
+      paste = assigns[:paste]
+      paste.should_not be_persisted
     end
   end
 end
