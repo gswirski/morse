@@ -5,14 +5,20 @@ class Highlighter
   end
 
   def run(code, options = {})
-    syntax = options[:syntax] || "text"
+    syntax = options[:syntax] || guess_syntax(options[:filename]) || "text"
+    [colorize(code, syntax), syntax]
+  end
+
+  def colorize(code, syntax)
     command = [Pygmentize.bin, "-l #{syntax}", "-f html", "-Oencoding=utf-8"]
     execute(command, code)
   end
 
   def guess_syntax(filename)
-    command = [Pygmentize.bin, "-N #{filename}"]
-    execute(command).strip
+    if filename
+      command = [Pygmentize.bin, "-N #{filename}"]
+      execute(command).strip
+    end
   end
 
   private
