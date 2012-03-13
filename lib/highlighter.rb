@@ -1,11 +1,10 @@
 class Highlighter
-
   def self.run(code, options = {})
     new.run(code, options)
   end
 
   def run(code, options = {})
-    syntax = options[:syntax] || guess_syntax(options[:filename]) || "text"
+    syntax = options[:syntax].presence || guess_syntax(options[:filename]) || "text"
     [colorize(code, syntax), syntax]
   end
 
@@ -15,7 +14,7 @@ class Highlighter
   end
 
   def guess_syntax(filename)
-    if filename
+    if filename.present?
       command = [Pygmentize.bin, "-N #{filename}"]
       execute(command).strip
     end
