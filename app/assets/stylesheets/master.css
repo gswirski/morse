@@ -1,0 +1,67 @@
+html, body {
+  height: 100%;
+  margin: 0px;
+  padding: 0px;
+}
+
+body {
+  background: #F3F3F3;
+}
+
+.container {
+  width: 700px;
+}
+
+h1 {
+  margin-bottom: 20px;
+}
+
+h1 small {
+  line-height: 20px;
+}
+
+.pro-tip {
+  font-size: 13px;
+  line-height: inherit;
+}
+
+.pro-tip strong {
+  font-weight: normal;
+  color: black;
+}
+
+.btn-toolbar {
+  margin-top: 4px;
+}
+
+a img, a i {
+  opacity: 0.6;
+}
+
+a:hover img, a:hover i{
+  opacity: 0.8;
+  text-decoration: none;
+}
+
+a .icon-white, .nav .active i {
+  opacity: 0.9;
+}
+
+a:hover .icon-white, .nav .active a:hover i  {
+  opacity: 1;
+}
+
+.nav .label {
+  background: none;
+  color: #999;
+  margin: 0px;
+  padding: 0px;
+}
+
+.nav a:hover .label {
+  color: #666;
+}
+
+.pagination ul {
+  background: #FAFAFA;
+}

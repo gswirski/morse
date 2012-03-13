@@ -1,16 +1,59 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <title>Morse</title>
-  <%= stylesheet_link_tag    "application", :media => "all" %>
-  <%= javascript_include_tag "application" %>
-  <%= csrf_meta_tags %>
-</head>
-<body>
+  <head>
+    <meta charset="utf-8" />
+    <title>Morse</title>
+    <%= stylesheet_link_tag    "application", :media => "all" %>
+    <%= javascript_include_tag "application" %>
+    <%= csrf_meta_tags %>
+  </head>
+  <body>
+    <div class="wrapper">
+      <div class="header">
+        <div class="container">
+          <ul class="menu navigation">
+            <li>
+              <%= link_to root_path do %>
+                <i class="icon-file"></i> New paste
+              <% end %>
+            </li>
+          </ul>
+        </div>
+      </div>
 
-<%= flash[:notice] %>
-<%= flash[:alert] %>
-<%= yield %>
+      <div class="content">
+        <div class="container">
+          <% if notice %>
+            <div class="alert alert-success">
+              <%= notice %>
+            </div>
+          <% end %>
+          <% if alert %>
+            <div class="alert alert-error">
+              <%= alert %>
+            </div>
+          <% end %>
 
-</body>
+          <div class="btn-toolbar pull-right">
+            <%= yield :actions %>
+          </div>
+          <h1><%= yield :title %></h1>
+
+          <%= yield %>
+        </div>
+      </div>
+
+      <div class="push"></div>
+    </div>
+    
+    <footer class="footer">
+      <div class="container">
+        <p class="pull-right">
+          Copyright &copy; 2012 by
+          <a href="http://swirski.name">Grzegorz Świrski</a>
+        </p>
+        <p><%= link_to "Paste files from your terminal!", '#' %></p>
+      </div>
+    </footer>
+  </body>
 </html>

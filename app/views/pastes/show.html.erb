@@ -1,2 +1,20 @@
-<h1>Show paste</h1>
-<%= raw(@paste.highlighted) %>
+<% content_for :title do %>
+  Show paste
+  <% if @paste.name.present? %>
+    <small><%= @paste.name %></small>
+  <% end %>
+<% end %>
+
+<div class="code-container">
+  <%= raw(@paste.highlighted) %>
+  <div class="line-numbers"></div>
+</div>
+
+<script type="text/javascript">
+  $(document).ready(function() {
+    var num = $('.highlight').html().split("\n").length;
+    for (i = 1; i < num; i++) {
+      $('.line-numbers').append(i+"<br />");
+    }
+  })
+</script>
