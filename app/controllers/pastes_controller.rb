@@ -1,6 +1,6 @@
 class PastesController < ApplicationController
   def show
-    @paste = Paste.find(params[:id])
+    @paste = Paste.find_by_slug(params[:id])
   end
 
   def new

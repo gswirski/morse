@@ -6,10 +6,15 @@ class Paste < ActiveRecord::Base
 
   validates :code, :presence => true
 
+  before_create :generate_slug
   before_save :clear_highlighted_cache
 
   def highlighted
     read_attribute(:highlighted_cache).presence || colorize
+  end
+
+  def to_param
+    slug
   end
 
   private
@@ -26,6 +31,11 @@ class Paste < ActiveRecord::Base
     )
 
     output
+  end
+
+  def generate_slug
+    o =  [('a'..'z'),('0'..'9')].map {|i| i.to_a}.flatten
+    self.slug = (0..30).map { o[rand(o.length)] }.join
   end
 
   def clear_highlighted_cache
