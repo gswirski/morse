@@ -19,7 +19,7 @@ When /^I select ([\w]+) to "([^"]*)"$/ do |name, value|
 end
 
 When /^I click submit button$/ do
-  page.click_button "Paste code"
+  page.find('input[type=submit]').click
 end
 
 Then /^I should see "([^"]*)"$/ do |text|
