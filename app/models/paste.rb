@@ -2,6 +2,8 @@ class Paste < ActiveRecord::Base
   SYNTAXES = [['Plain text', 'text'], ['C++', 'cpp'], ['Ruby', 'rb'],
       ['Python', 'py'], ['PHP', 'php']]
 
+  attr_accessible :code, :name, :syntax
+
   validates :code, :presence => true
 
   before_save :clear_highlighted_cache
@@ -18,7 +20,10 @@ class Paste < ActiveRecord::Base
     options[:filename] = name if name
 
     output, syntax = Highlighter.run(code, options)
-    update_attributes(highlighted_cache: output, syntax: syntax)
+    update_attributes(
+      { highlighted_cache: output, syntax: syntax },
+      without_protection: true
+    )
 
     output
   end

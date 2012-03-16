@@ -4,9 +4,12 @@ describe Paste do
   describe ".save" do
     it "clears highlight cache" do
       paste = Paste.create(
-        code: "code",
-        syntax: "cpp",
-        highlighted_cache: "highlighted code"
+        {
+          code: "code",
+          syntax: "cpp",
+          highlighted_cache: "highlighted code"
+        },
+        without_protection: true
       )
       paste.read_attribute(:highlighted_cache).should == "highlighted code"
       paste.code = "new code"
