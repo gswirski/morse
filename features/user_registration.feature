@@ -14,7 +14,7 @@ Feature: user registration
     And I fill in user_password with "ipsum"
     And I fill in user_password_confirmation with "ipsum"
     And I click submit button
-    Then I should be authenticated user
+    Then I should be signed in as lorem
 
   Scenario: submits no username
     When I visit register page

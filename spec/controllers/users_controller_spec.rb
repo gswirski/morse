@@ -20,6 +20,7 @@ describe UsersController do
       post :create, :user => { "username" => "lorem" }
       user = assigns[:user]
       user.should be_persisted
+      cookies.signed[:user_id].should be_present
       response.should redirect_to(root_path)
     end
 
@@ -28,6 +29,7 @@ describe UsersController do
       post :create, :user => { "username" => "lorem" }
       user = assigns[:user]
       user.should_not be_persisted
+      cookies.signed[:user_id].should_not be_present
     end
   end
 end

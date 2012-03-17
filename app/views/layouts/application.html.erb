@@ -18,6 +18,26 @@
               <% end %>
             </li>
           </ul>
+
+          <ul class="user-actions navigation">
+            <% if signed_in? %>
+            <li>
+              <%= link_to edit_user_path(current_user) do %>
+                <i class="icon-cog"></i> <%= current_user.username %>
+              <% end %>
+            </li>
+            <li>
+              <%= link_to :session, :method => :delete do %>
+                <i class="icon-off"></i>
+              <% end %>
+            </li>
+            <% else %>
+            <li class="unlogged">
+              <%= link_to "Login", new_session_path %> or
+              <%= link_to "create account", new_user_path %>
+            </li>
+          <% end %>
+          </ul>
         </div>
       </div>
 
