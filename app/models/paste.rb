@@ -4,7 +4,7 @@ class Paste < ActiveRecord::Base
 
   attr_accessible :code, :name, :syntax
 
-  validates :code, :presence => true
+  validates :code, presence: true
 
   before_create :generate_slug
   before_save :clear_highlighted_cache
