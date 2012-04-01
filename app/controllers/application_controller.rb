@@ -6,6 +6,8 @@ class ApplicationController < ActionController::Base
   self.responder = ApplicationResponder
   respond_to :html
 
+  rescue_from Security::UserNotAuthenticated, with: :redirect_to_login
+
   private
 
   def signed_in?
@@ -17,4 +19,12 @@ class ApplicationController < ActionController::Base
     @current_user ||= User.find_by_id(cookies.signed[:user_id]) if signed_in?
   end
   helper_method :current_user
+
+  def authenticate_user!
+    raise Security::UserNotAuthenticated unless signed_in?
+  end
+
+  def redirect_to_login
+    redirect_to new_session_url
+  end
 end
