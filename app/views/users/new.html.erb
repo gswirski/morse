@@ -1,13 +1,15 @@
 <% content_for :title, "Create account" %>
 
 <%= form_for @user, url: user_path do |f| %>
+  <%= render "shared/error_messages", :target => @user %>
+
   <div class="clearfix">
     <%= f.label :username %>
     <div class="input">
       <%= f.text_field :username %>
     </div>
   </div>
-  
+
   <div class="clearfix">
     <%= f.label :password %>
     <div class="input">

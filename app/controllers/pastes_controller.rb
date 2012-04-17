@@ -10,7 +10,7 @@ class PastesController < ApplicationController
   def create
     @paste = Paste.new(params[:paste])
     unless @paste.save
-      flash[:alert] = "An error occurred."
+      flash[:alert] = "You wanted to paste some code, right? :)"
     end
     respond_with @paste
   end

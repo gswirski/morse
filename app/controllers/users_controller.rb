@@ -11,7 +11,6 @@ class UsersController < ApplicationController
       cookies.signed.permanent[:user_id] = @user.id
       redirect_to root_url, notice: "User was successfully created."
     else
-      flash.now[:alert] = "An error occurred."
       render "new"
     end
   end

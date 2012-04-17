@@ -11,7 +11,7 @@ Then /^the result should be success$/ do
 end
 
 Then /^the result should be error$/ do
-  page.should have_content("An error occurred")
+  page.should have_css(".alert")
 end
 
 Then /^the code should be highlighted$/ do

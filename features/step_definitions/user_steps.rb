@@ -53,3 +53,7 @@ Then /^I should not be able to login with "([^"]*)" and "([^"]*)"$/ do |username
   page.find("input[type=submit]").click
   page.find(".user-actions").should_not have_content(username)
 end
+
+Then /^the form should be invalid$/ do
+  page.should have_css("#errorExplanation")
+end

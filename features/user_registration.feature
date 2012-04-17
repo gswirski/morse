@@ -21,11 +21,11 @@ Feature: user registration
     And I fill in user_password with "ipsum"
     And I fill in user_password_confirmation with "ipsum"
     And I click submit button
-    Then the result should be error
+    Then the form should be invalid
 
   Scenario: submits invalid passwords
     When I visit register page
     And I fill in user_password with "ipsum"
     And I fill in user_password_confirmation with "ipsum2"
     And I click submit button
-    Then the result should be error
+    Then the form should be invalid
