@@ -1,5 +1,5 @@
 When /^I visit the (?:root|home) page$/ do
-  visit('/')
+  visit("/")
 end
 
 When /^I fill in ([\w]+) with "([^"]*)"$/ do |name, value|
@@ -11,7 +11,7 @@ When /^I select ([\w]+) to "([^"]*)"$/ do |name, value|
 end
 
 When /^I click submit button$/ do
-  page.find('input[type=submit]').click
+  page.find("input[type=submit]").click
 end
 
 Then /^I should see "([^"]*)"$/ do |text|

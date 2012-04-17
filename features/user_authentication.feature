@@ -16,7 +16,7 @@ Feature: User authentication
     And I fill in user_password with "ipsum"
     And I click submit button
     Then I should see "Signed in successfully."
-    And I should be signed in as lorem
+    And I should be signed in as "lorem"
 
   Scenario Outline: login failure
     Given I have a user with username: "lorem" and password: "ipsum"

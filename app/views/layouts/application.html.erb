@@ -22,7 +22,7 @@
           <ul class="user-actions navigation">
             <% if signed_in? %>
             <li>
-              <%= link_to edit_user_path(current_user) do %>
+              <%= link_to edit_user_path do %>
                 <i class="icon-cog"></i> <%= current_user.username %>
               <% end %>
             </li>

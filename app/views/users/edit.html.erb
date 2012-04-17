@@ -1,0 +1,18 @@
+<% content_for :title, "Account settings" %>
+
+<h3>Change password</h3>
+<%= form_for @user, url: user_path do |f| %>
+
+  <p>Enter your old password:</p>
+  <p><%= f.password_field :current_password %></p>
+  
+  <p>Enter in your new password and confirm it:</p>
+  <p>
+    <%= f.password_field :password %>
+    <%= f.password_field :password_confirmation %>
+  </p>
+  
+  <p>
+    <%= f.submit "Update", :class => "btn btn-primary" %>
+  </p>
+<% end %>

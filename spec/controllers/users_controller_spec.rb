@@ -32,4 +32,13 @@ describe UsersController do
       cookies.signed[:user_id].should_not be_present
     end
   end
+
+  describe "GET edit" do
+    it "sets user" do
+      User.create!(username: "lorem", password: "ipsum", password_confirmation: "ipsum")
+      sign_in("lorem")
+      get :edit
+      assigns.should include(:user)
+    end
+  end
 end
