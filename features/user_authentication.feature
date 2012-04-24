@@ -18,6 +18,11 @@ Feature: User authentication
     Then I should see "Signed in successfully."
     And I should be signed in as "lorem"
 
+  Scenario: logins with auth token
+    Given I have a user with username: "lorem" and password: "ipsum"
+    When I visit the home page with auth_token
+    Then I should be signed in as "lorem"
+
   Scenario Outline: login failure
     Given I have a user with username: "lorem" and password: "ipsum"
     When I visit login page

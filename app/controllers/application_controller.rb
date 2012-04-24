@@ -8,10 +8,12 @@ class ApplicationController < ActionController::Base
 
   rescue_from Security::UserNotAuthenticated, with: :redirect_to_login
 
+  before_filter :authenticate_from_token
+
   private
 
   def signed_in?
-    cookies.signed[:user_id].present?
+    cookies.signed[:user_id].present? || @current_user
   end
   helper_method :signed_in?
 
@@ -22,6 +24,12 @@ class ApplicationController < ActionController::Base
 
   def authenticate_user!
     raise Security::UserNotAuthenticated unless signed_in?
+  end
+
+  def authenticate_from_token
+    if params[:auth_token].present?
+      @current_user ||= User.find_for_token_authentication(params[:auth_token])
+    end
   end
 
   def redirect_to_login

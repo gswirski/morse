@@ -2,6 +2,10 @@ When /^I visit the (?:root|home) page$/ do
   visit("/")
 end
 
+When /^I visit the (?:root|home) page with auth_token$/ do
+  visit("/?auth_token=#{@user.authentication_token}")
+end
+
 When /^I fill in ([\w]+) with "([^"]*)"$/ do |name, value|
   page.fill_in name, :with => value
 end
