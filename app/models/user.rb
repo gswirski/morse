@@ -3,6 +3,8 @@ require 'securerandom'
 class User < ActiveRecord::Base
   has_secure_password
 
+  has_many :pastes
+
   attr_accessible :username, :password, :password_confirmation
 
   before_save :ensure_authentication_token

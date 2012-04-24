@@ -2,6 +2,8 @@ class Paste < ActiveRecord::Base
   SYNTAXES = [['Plain text', 'text'], ['C++', 'cpp'], ['Ruby', 'rb'],
       ['Python', 'py'], ['PHP', 'php']]
 
+  belongs_to :user
+
   attr_accessible :code, :name, :syntax
 
   validates :code, presence: true
