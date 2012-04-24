@@ -4,6 +4,10 @@ class Paste < ActiveRecord::Base
 
   belongs_to :user
 
+  default_scope order("created_at DESC")
+  scope :by_user, lambda { |user| where(:user_id => user.id) }
+  scope :list, lambda { select([:id, :slug, :name, :syntax, :created_at]) }
+
   attr_accessible :code, :name, :syntax
 
   validates :code, presence: true

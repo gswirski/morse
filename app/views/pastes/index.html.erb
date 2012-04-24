@@ -1,0 +1,18 @@
+<% content_for :title, "Browse pastes" %>
+
+<div class="row">
+  <div class="span6">
+    <ul class="pastes nav nav-pills nav-stacked">
+      <% @pastes.each do |paste| %>
+      <li>
+        <%= link_to paste do %>
+          <span class="date pull-right"><%= "#{time_ago_in_words(paste.created_at)} ago" %></span>
+          <i class="icon-file"></i> <%= paste.name.presence || raw("<em>unnamed</em>") %>
+        <% end %>
+      </li>
+      <% end %>
+    </ul>
+
+    <%= paginate(@pastes, :theme => 'twitter-bootstrap') %>
+  </div>
+</div>

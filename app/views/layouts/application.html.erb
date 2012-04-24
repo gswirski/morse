@@ -17,6 +17,13 @@
                 <i class="icon-file"></i> New paste
               <% end %>
             </li>
+            <% if signed_in? %>
+            <li>
+              <%= link_to pastes_path do %>
+                <i class="icon-inbox"></i> Browse
+              <% end %>
+            </li>
+            <% end %>
           </ul>
 
           <ul class="user-actions navigation">

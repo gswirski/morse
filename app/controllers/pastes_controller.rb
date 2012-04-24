@@ -1,4 +1,9 @@
 class PastesController < ApplicationController
+  def index
+    @pastes = Paste.by_user(current_user).list.page(params[:page]).per(10)
+    respond_with(@pastes)
+  end
+
   def show
     @paste = build_paste
     respond_with(@paste)

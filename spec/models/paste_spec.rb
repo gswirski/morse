@@ -32,4 +32,15 @@ describe Paste do
       end
     end
   end
+
+  describe ".by_user" do
+    it "returns pastes that belong to user" do
+      user = FactoryGirl.create(:user)
+      owned = user.pastes.create(code: "aaa")
+      anonymous = Paste.create(code: "bbb")
+      pastes = Paste.by_user(user)
+      pastes.should include(owned)
+      pastes.should_not include(anonymous)
+    end
+  end
 end

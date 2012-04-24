@@ -1,6 +1,19 @@
 require 'spec_helper'
 
 describe PastesController do
+  describe "GET index" do
+    before(:each) do
+      @user = FactoryGirl.create(:user)
+      sign_in(@user)
+    end
+
+    it "assigns pastes array" do
+      Paste.expects(:by_user).with(@user).returns(Paste)
+      get :index
+      assigns.should include(:pastes)
+    end
+  end
+
   describe "GET show" do
     it "assigns paste object" do
       Paste.expects(:find_by_slug).with('2').returns(:paste_object)
