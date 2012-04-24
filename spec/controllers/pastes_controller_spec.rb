@@ -38,5 +38,13 @@ describe PastesController do
       paste = assigns[:paste]
       paste.should_not be_persisted
     end
+
+    it "should belong to current user" do
+      user = FactoryGirl.create(:user)
+      sign_in(user)
+      post :create, :paste => { "code" => "value" }
+      paste = assigns[:paste]
+      paste.user_id.should == user.id
+    end
   end
 end

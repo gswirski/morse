@@ -1,17 +1,30 @@
 class PastesController < ApplicationController
   def show
-    @paste = Paste.find_by_slug(params[:id])
+    @paste = build_paste
+    respond_with(@paste)
   end
 
   def new
-    @paste = Paste.new
+    @paste = build_paste
   end
 
   def create
-    @paste = Paste.new(params[:paste])
+    @paste = build_paste
     unless @paste.save
       flash[:alert] = "You wanted to paste some code, right? :)"
     end
     respond_with @paste
+  end
+
+  private
+
+  def build_paste
+    if params[:id]
+      Paste.find_by_slug(params[:id])
+    elsif signed_in?
+      current_user.pastes.build(params[:paste])
+    else
+      Paste.new(params[:paste])
+    end
   end
 end
