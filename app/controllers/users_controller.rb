@@ -36,4 +36,12 @@ class UsersController < ApplicationController
       render "edit"
     end
   end
+
+
+  def reset_token
+    current_user.reset_authentication_token
+    current_user.save
+    redirect_to edit_user_url,
+      :notice => "Authentication token reset"
+  end
 end
