@@ -1,0 +1,22 @@
+<h1>Pasting files from the command line</h1>
+<h2>Installation</h2>
+<p>
+  Download <%= link_to "this little script", download_paste_path(@paste) %> and put it somewhere in
+  your <code>$PATH</code>. If you are distrustful, <%= link_to "here is the source", @paste %>.
+</p>
+
+<p>Remember to add execute permission:</p>
+<pre>chmod +x morse</pre>
+
+<h2>Usage</h2>
+<p>Morse uses standard input, so you can paste files:</p>
+<pre>morse &lt; filename</pre>
+<p>or output of your program:</p>
+<pre>./your_app | morse</pre>
+<p>And for your convenience this also works:</p>
+<pre>morse filename</pre>
+<p>For more options type</p>
+<pre>morse -h</pre>
+
+<h2>Credits</h2>
+<p>Created by <strong>Marcin Kostrzewa</strong>.</p>

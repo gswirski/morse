@@ -8,5 +8,6 @@ Morse::Application.routes.draw do
   end
   resource :session, only: [:new, :create, :destroy]
 
+  get 'shell' => "pages#shell", :as => "shell_page"
   root to: "pastes#new"
 end
