@@ -19,7 +19,7 @@ class Paste < ActiveRecord::Base
 
   def self.count_by_month
     months = ActiveSupport::OrderedHash.new
-    result = group(:month).count.sort.reverse
+    result = reorder('').group(:month).count.sort.reverse
     result.each do |el|
       months[el[0]] = el[1]
     end
