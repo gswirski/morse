@@ -98,7 +98,8 @@ describe PastesController do
 
   describe "POST update" do
     before(:each) do
-      @paste = FactoryGirl.create(:paste)
+      @user = FactoryGirl.create(:user)
+      @paste = FactoryGirl.create(:paste, user_id: @user.id)
     end
 
     it "authorizes user" do
@@ -112,6 +113,7 @@ describe PastesController do
     end
 
     it "updates attributes" do
+      sign_in(@user)
       post :update, id: @paste.slug, paste: { name: "lorem.ipsum" }
       assigns[:paste].name.should == "lorem.ipsum"
     end
