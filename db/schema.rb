@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120424182109) do
+ActiveRecord::Schema.define(:version => 20120428074521) do
 
   create_table "pastes", :force => true do |t|
     t.string   "name"
@@ -22,6 +22,7 @@ ActiveRecord::Schema.define(:version => 20120424182109) do
     t.datetime "updated_at",        :null => false
     t.text     "highlighted_cache"
     t.integer  "user_id"
+    t.string   "month"
   end
 
   add_index "pastes", ["user_id"], :name => "index_pastes_on_user_id"

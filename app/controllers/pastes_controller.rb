@@ -1,6 +1,11 @@
 class PastesController < ApplicationController
   def index
-    @pastes = Paste.by_user(current_user).list.page(params[:page]).per(10)
+    @pastes = Paste.by_user(current_user)
+    if params[:month]
+      @pastes = @pastes.in_month(params[:month])
+    end
+    @pastes = @pastes.list.page(params[:page]).per(10)
+    @count = Paste.by_user(current_user).count_by_month
     respond_with(@pastes)
   end
 

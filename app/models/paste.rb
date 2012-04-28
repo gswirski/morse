@@ -6,14 +6,25 @@ class Paste < ActiveRecord::Base
 
   default_scope order("created_at DESC")
   scope :by_user, lambda { |user| where(:user_id => user.id) }
+  scope :in_month, lambda { |month| where(:month => month) }
   scope :list, lambda { select([:id, :slug, :name, :syntax, :created_at]) }
 
   attr_accessible :code, :name, :syntax
 
   validates :code, presence: true
 
-  before_create :generate_slug
   before_save :clear_highlighted_cache
+  before_save :set_month
+  before_create :generate_slug
+
+  def self.count_by_month
+    months = ActiveSupport::OrderedHash.new
+    result = group(:month).count.sort.reverse
+    result.each do |el|
+      months[el[0]] = el[1]
+    end
+    { total: count, months: months }
+  end
 
   def highlighted
     read_attribute(:highlighted_cache).presence || colorize
@@ -41,6 +52,11 @@ class Paste < ActiveRecord::Base
     )
 
     output
+  end
+
+  def set_month
+    time = created_at || Time.now
+    self.month = time.strftime("%Y-%m")
   end
 
   def generate_slug

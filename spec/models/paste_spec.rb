@@ -26,6 +26,12 @@ describe Paste do
       paste.save
       paste.read_attribute(:highlighted_cache).should be_nil
     end
+
+    it "sets correct month" do
+      paste = FactoryGirl.create(:paste)
+      time = Time.now
+      paste.month.should == "%04d-%02d" % [time.year, time.month]
+    end
   end
 
   describe ".filename" do
@@ -64,5 +70,20 @@ describe Paste do
       pastes.should include(owned)
       pastes.should_not include(anonymous)
     end
+  end
+
+  describe ".count_by_month" do
+    FactoryGirl.create(:paste, created_at: Time.utc(2012, 2, 1))
+    FactoryGirl.create(:paste, created_at: Time.utc(2012, 2, 1))
+    FactoryGirl.create(:paste, created_at: Time.utc(2012, 3, 1))
+    FactoryGirl.create(:paste, created_at: Time.utc(2012, 4, 1))
+
+    result = ActiveSupport::OrderedHash.new
+    result["2012-04"] = 1
+    result["2012-03"] = 1
+    result["2012-02"] = 2
+    count = Paste.count_by_month
+    count[:total].should == 4
+    count[:months].should == result
   end
 end

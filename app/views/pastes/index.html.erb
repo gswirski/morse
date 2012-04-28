@@ -1,4 +1,11 @@
-<% content_for :title, "Browse pastes" %>
+<% content_for :title do %>
+  <% if params[:month] %>
+    <%= "Archive for " %>
+    <%= Time.parse(params[:month] + "-01").strftime("%B %Y") %>
+  <% else %>
+    <%= "Browse pastes" %>
+  <% end %>
+<% end %>
 
 <div class="row">
   <div class="span6">
@@ -15,4 +22,29 @@
 
     <%= paginate(@pastes, :theme => 'twitter-bootstrap') %>
   </div>
+
+  <% if @count[:months].size > 1 %>
+  <div class="span3">
+    <div class="well" style="padding: 8px 0;">
+      <ul class="nav nav-list">
+        <li class="nav-header">Archive</li>
+        <li>
+          <%= link_to pastes_path do %>
+            <span class="label pull-right"><%= @count[:total] %></span>
+            <i class="icon-eye-open"></i> Show all
+          <% end %>
+        </li>
+        <% @count[:months].each do |month, count| %>
+          <li>
+            <%= link_to pastes_path(month: month) do %>
+              <span class="label pull-right"><%= count %></span>
+              <i class="icon-time"></i>
+              <%= Time.parse(month + "-01").strftime("%B %Y") %>
+            <% end %>
+          </li>
+        <% end %>
+      </ul>
+    </div>
+  </div>
+  <% end %>
 </div>

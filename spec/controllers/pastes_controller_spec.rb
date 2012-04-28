@@ -8,9 +8,15 @@ describe PastesController do
     end
 
     it "assigns pastes array" do
-      Paste.expects(:by_user).with(@user).returns(Paste)
+      Paste.expects(:by_user).with(@user).at_least_once.returns(Paste)
       get :index
       assigns.should include(:pastes)
+    end
+
+    it "assigns count array" do
+      Paste.expects(:count_by_month)
+      get :index
+      assigns.should include(:count)
     end
   end
 
