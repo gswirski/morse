@@ -8,6 +8,8 @@ end
 group :development, :test do
   gem 'sqlite3'
   gem 'factory_girl_rails'
+  gem 'spork-rails'
+  gem 'spork-testunit'
 end
 
 gem 'devise'
