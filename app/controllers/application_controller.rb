@@ -3,8 +3,8 @@ require "application_responder"
 class ApplicationController < ActionController::Base
   protect_from_forgery
 
-  self.responder = ApplicationResponder
   respond_to :html
+  responders :flash, :http_cache, :shell
 
   rescue_from Security::UserNotAuthenticated, with: :redirect_to_login
 

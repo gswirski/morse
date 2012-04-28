@@ -1,4 +1,6 @@
 class PastesController < ApplicationController
+  respond_to :shell, only: :create
+
   def index
     @pastes = Paste.by_user(current_user)
     if params[:month]
