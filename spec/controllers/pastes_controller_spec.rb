@@ -79,4 +79,68 @@ describe PastesController do
       paste.user_id.should == user.id
     end
   end
+
+  describe "GET edit" do
+    before(:each) do
+      @paste = FactoryGirl.create(:paste)
+    end
+
+    it "authorizes user" do
+      controller.expects(:authorize!).with(:manage, @paste)
+      get :edit, id: @paste.slug
+    end
+
+    it "sets paste" do
+      get :edit, id: @paste.slug
+      assigns.should include(:paste)
+    end
+  end
+
+  describe "POST update" do
+    before(:each) do
+      @paste = FactoryGirl.create(:paste)
+    end
+
+    it "authorizes user" do
+      controller.expects(:authorize!).with(:manage, @paste)
+      post :update, id: @paste.slug, paste: {}
+    end
+
+    it "sets paste" do
+      get :edit, id: @paste.slug
+      assigns.should include(:paste)
+    end
+
+    it "updates attributes" do
+      post :update, id: @paste.slug, paste: { name: "lorem.ipsum" }
+      assigns[:paste].name.should == "lorem.ipsum"
+    end
+  end
+
+  describe "DELETE destroy" do
+    it "destroys paste when called by author" do
+      user = FactoryGirl.create(:user)
+      paste = FactoryGirl.build(:paste)
+      paste.user_id = user.id
+      paste.save
+
+      lambda do
+        sign_in(user)
+        delete :destroy, id: paste.slug
+      end.should change(Paste, :count).by(-1)
+    end
+
+    it "shouldn't delete paste when user not authorized" do
+      user = FactoryGirl.create(:user)
+      paste = FactoryGirl.build(:paste)
+      paste.user_id = user.id + 1
+      paste.save
+
+      lambda do
+        sign_in(user)
+        delete :destroy, id: paste.slug
+      end.should change(Paste, :count).by(0)
+
+    end
+  end
 end

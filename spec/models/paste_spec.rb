@@ -86,4 +86,31 @@ describe Paste do
     count[:total].should == 4
     count[:months].should == result
   end
+
+  describe "managable_by?" do
+    before(:each) do
+      @user = FactoryGirl.create(:user)
+    end
+
+    it "should be managable by author" do
+      paste = FactoryGirl.build(:paste)
+      paste.user_id = @user.id
+      paste.save
+
+      paste.managable_by?(@user).should be_true
+    end
+
+    it "shouldn't be managable by anyone else" do
+      paste = FactoryGirl.build(:paste)
+      paste.user_id = @user.id + 1
+      paste.save
+      paste.managable_by?(@user).should be_false
+      paste.managable_by?(nil).should be_false
+
+      paste = FactoryGirl.create(:paste)
+      paste.managable_by?(@user).should be_false
+      paste.managable_by?(nil).should be_false
+    end
+
+  end
 end

@@ -1,5 +1,17 @@
 <%= form_for(@paste) do |f| %>
-  <%= f.submit "Paste code", :class => "btn btn-primary pull-right" %>
+  <% if params[:action] == "edit" %>
+    <div class="pull-right btn-group">
+      <%= link_to "#", :class => "btn", :onclick => "$('#edit_#{dom_id(@paste)}').submit()" do %>
+        <i class="icon-ok"></i> Save
+      <% end %>
+      <%= link_to @paste, :class => "btn btn-danger", :confirm => "Discard changes?" do %>
+        <i class="icon-remove icon-white"></i>
+      <% end %>
+    </div>
+  <% else %>
+    <%= f.submit "Paste code", :class => "btn btn-primary pull-right" %>
+  <% end %>
+
   <p class="form-inline paste-actions">
     <%= f.text_field :name, :placeholder => "File name (optional)" %>
     <%= f.select :syntax, Paste::SYNTAXES %>

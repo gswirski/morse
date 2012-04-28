@@ -1,6 +1,7 @@
 class PastesController < ApplicationController
   respond_to :shell, only: :create
 
+  before_filter :authenticate_user!, only: [ :index ]
   def index
     @pastes = Paste.by_user(current_user)
     if params[:month]
@@ -35,6 +36,26 @@ class PastesController < ApplicationController
       flash[:alert] = "You wanted to paste some code, right? :)"
     end
     respond_with @paste
+  end
+
+  def edit
+    @paste = build_paste
+    authorize!(:manage, @paste)
+    respond_with(@paste)
+  end
+
+  def update
+    @paste = build_paste
+    authorize!(:manage, @paste)
+    @paste.update_attributes(params[:paste])
+    respond_with(@paste)
+  end
+
+  def destroy
+    @paste = build_paste
+    authorize!(:manage, @paste)
+    @paste.destroy
+    respond_with(@paste)
   end
 
   private

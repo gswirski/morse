@@ -32,6 +32,16 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  def authorize!(action, resource)
+    authenticate_user!
+    method = action.to_s
+    method = method[0..-2] if method[-1] == 'e'
+    method += "able_by?"
+    unless resource.send(method.to_sym, current_user)
+      raise Security::UserNotAuthenticated
+    end
+  end
+
   def redirect_to_login
     redirect_to new_session_url
   end

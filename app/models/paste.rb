@@ -38,6 +38,10 @@ class Paste < ActiveRecord::Base
     slug
   end
 
+  def managable_by?(user)
+    user.present? and user.id == user_id
+  end
+
   private
 
   def colorize

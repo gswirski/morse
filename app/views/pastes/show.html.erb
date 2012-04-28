@@ -11,6 +11,16 @@
       <i class="icon-download-alt"></i> Download file
     <% end %>
     </div>
+    <% if @paste.managable_by?(current_user) %>
+    <div class="btn-group">
+    <%= link_to edit_paste_path(@paste), :class => "btn" do %>
+      <i class="icon-edit"></i> Edit
+    <% end %>
+    <%= link_to @paste, :method => :delete, :confirm => "Are you sure?", :class => "btn btn-danger" do %>
+      <i class="icon-trash icon-white"></i> Delete
+    <% end %>
+    </div>
+    <% end %>
 <% end %>
 
 <div class="code-container">

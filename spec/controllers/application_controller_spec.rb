@@ -35,4 +35,28 @@ describe ApplicationController do
       assigns[:current_user].should be_nil
     end
   end
+
+  describe "authorize!" do
+    class Resource
+      def destroyable_by?(user)
+        user
+      end
+    end
+
+    it "raises exception when not authorized" do
+      ApplicationController.any_instance.stubs(:signed_in?).returns(true)
+      ApplicationController.any_instance.stubs(:current_user).returns(false)
+      lambda { controller.send(:authorize!, [:destroy, Resource.new]) }.should
+        raise_error Security::UserNotAuthenticated
+    end
+
+    it "does not raise exception when authorized" do
+      ApplicationController.any_instance.stubs(:signed_in?).returns(true)
+      ApplicationController.any_instance.stubs(:current_user).returns(true)
+      lambda { controller.send(:authorize!, [:destroy, Resource.new]) }.should_not
+        raise_error Security::UserNotAuthenticated
+
+    end
+
+  end
 end
