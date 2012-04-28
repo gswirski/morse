@@ -9,6 +9,15 @@ class PastesController < ApplicationController
     respond_with(@paste)
   end
 
+  def download
+    @paste = build_paste
+    send_data(
+      @paste.code,
+      :filename => @paste.filename,
+      :type => "application/shell"
+    )
+  end
+
   def new
     @paste = build_paste
   end

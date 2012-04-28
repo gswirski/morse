@@ -1,6 +1,16 @@
 require 'spec_helper'
 
 describe Paste do
+  it "has valid factory" do
+    FactoryGirl.create(:paste).should be_valid
+  end
+
+  it "validates code presence" do
+    paste = FactoryGirl.build(:paste, code: nil)
+    paste.should_not be_valid
+
+  end
+
   describe ".save" do
     it "clears highlight cache" do
       paste = Paste.create(
@@ -15,6 +25,18 @@ describe Paste do
       paste.code = "new code"
       paste.save
       paste.read_attribute(:highlighted_cache).should be_nil
+    end
+  end
+
+  describe ".filename" do
+    it "returns name if present" do
+      paste = FactoryGirl.create(:paste)
+      paste.filename.should == paste.name
+    end
+
+    it "returns slug if name not present" do
+      paste = FactoryGirl.create(:paste, name: nil, slug: "a", syntax: "b")
+      paste.filename.should == "a.b"
     end
   end
 

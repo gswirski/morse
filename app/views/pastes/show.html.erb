@@ -5,6 +5,14 @@
   <% end %>
 <% end %>
 
+<% content_for :actions do %>
+    <div class="btn-group">
+    <%= link_to download_paste_path(@paste), :class => "btn" do %>
+      <i class="icon-download-alt"></i> Download file
+    <% end %>
+    </div>
+<% end %>
+
 <div class="code-container">
   <%= raw(@paste.highlighted) %>
   <div class="line-numbers"></div>

@@ -1,10 +1,10 @@
 Morse::Application.routes.draw do
-  resources :pastes
+  resources :pastes do
+    get "download", on: :member
+  end
 
   resource :user do
-    member do
-      post "reset_token", to: "users#reset_token"
-    end
+    post "reset_token", on: :member
   end
   resource :session, only: [:new, :create, :destroy]
 

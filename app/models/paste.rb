@@ -19,6 +19,10 @@ class Paste < ActiveRecord::Base
     read_attribute(:highlighted_cache).presence || colorize
   end
 
+  def filename
+    read_attribute(:name).presence || "#{slug}.#{syntax}"
+  end
+
   def to_param
     slug
   end
@@ -40,8 +44,10 @@ class Paste < ActiveRecord::Base
   end
 
   def generate_slug
-    o =  [('a'..'z'),('0'..'9')].map {|i| i.to_a}.flatten
-    self.slug = (0..30).map { o[rand(o.length)] }.join
+    unless slug.present?
+      o =  [('a'..'z'),('0'..'9')].map {|i| i.to_a}.flatten
+      self.slug = (0..30).map { o[rand(o.length)] }.join
+    end
   end
 
   def clear_highlighted_cache

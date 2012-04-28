@@ -17,10 +17,23 @@ describe PastesController do
   describe "GET show" do
     it "assigns paste object" do
       Paste.expects(:find_by_slug).with('2').returns(:paste_object)
-      get :show, :id => '2'
+      get :show, id: "2"
       assigns.should include(:paste)
       assigns[:paste].should eq(:paste_object)
     end
+  end
+
+  describe "GET download" do
+    it "sends paste file" do
+      paste = FactoryGirl.create(:paste)
+      controller.stubs(:render).times(0..1) # because of some Rails/RSpec bug
+      controller.expects(:send_data).with(
+        paste.code,
+        all_of(has_key(:filename), has_key(:type))
+      )
+      get :download, id: paste.slug
+    end
+
   end
 
   describe "GET new" do
