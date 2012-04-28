@@ -94,6 +94,7 @@ GEM
       metaclass (~> 0.0.1)
     multi_json (1.1.0)
     nokogiri (1.5.0)
+    pg (0.13.2)
     polyglot (0.3.3)
     pygmentize (0.0.3)
     rack (1.4.1)
@@ -178,6 +179,7 @@ DEPENDENCIES
   jquery-rails
   kaminari
   mocha
+  pg
   pygmentize
   rails (= 3.2.1)
   responders
