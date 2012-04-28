@@ -62,7 +62,7 @@ class PastesController < ApplicationController
 
   def build_paste
     if params[:id]
-      Paste.find_by_slug(params[:id])
+      Paste.find_by_slug!(params[:id])
     elsif signed_in?
       current_user.pastes.build(params[:paste])
     else

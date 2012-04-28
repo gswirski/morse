@@ -6,7 +6,12 @@ class ApplicationController < ActionController::Base
   respond_to :html
   responders :flash, :http_cache, :shell
 
+  rescue_from ActiveRecord::RecordNotFound, :with => :render_not_found
+  rescue_from ActionController::RoutingError, :with => :render_not_found
+  rescue_from ActionController::UnknownController, :with => :render_not_found
+  rescue_from ActionController::UnknownAction, :with => :render_not_found
   rescue_from Security::UserNotAuthenticated, with: :redirect_to_login
+  rescue_from Security::UserNotAuthorized, with: :redirect_to_login
 
   before_filter :authenticate_from_token
 
@@ -42,7 +47,13 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  def redirect_to_login
+  def render_not_found(exception)
+    message = "\n#{exception.class} (#{exception.message}):\n"
+    Rails.logger.warn(message)
+    render template: "/error/404.html.erb", status: 404
+  end
+
+  def redirect_to_login(exception)
     redirect_to new_session_url
   end
 end
