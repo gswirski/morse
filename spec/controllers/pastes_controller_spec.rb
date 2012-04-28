@@ -22,7 +22,7 @@ describe PastesController do
 
   describe "GET show" do
     it "assigns paste object" do
-      Paste.expects(:find_by_slug).with('2').returns(:paste_object)
+      Paste.expects(:find_by_slug!).with('2').returns(:paste_object)
       get :show, id: "2"
       assigns.should include(:paste)
       assigns[:paste].should eq(:paste_object)
